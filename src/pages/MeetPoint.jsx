@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { debounce } from "lodash";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+const createPageUrl = (pageName) => `/${pageName}`;
 
 import MapView from "../components/MapView";
 import JourneyDetails from "../components/MeetPoint/JourneyDetails";

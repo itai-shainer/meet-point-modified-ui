@@ -8,7 +8,7 @@ import {
   Loader2, Sun, Moon, ChevronLeft, User, Navigation, Star, History
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+const createPageUrl = (pageName) => `/${pageName}`;
 import { format } from "date-fns";
 import MapView from "../components/MapView";
 import JourneyDetails from "../components/MeetPoint/JourneyDetails";
