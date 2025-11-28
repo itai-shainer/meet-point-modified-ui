@@ -417,7 +417,7 @@ export default function MeetPoint() {
   
   const ResultHeader = ({ plan }) => (
     <Card className={`mb-4 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50'}`}>
-        <CardContent className="p-4 flex flex-wrap items-center justify-around gap-4 text-center">
+        <CardContent className="p-3 md:p-4 grid grid-cols-2 md:flex md:flex-wrap items-center justify-around gap-4 text-center">
             <div className="flex flex-col items-center">
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                     <Clock className="w-5 h-5"/>
@@ -460,22 +460,22 @@ export default function MeetPoint() {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'}`}>
       <div className="max-w-7xl mx-auto p-4 md:p-8">
-        <div className="flex justify-between items-center mb-8">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+          <div className="flex items-center gap-3 w-full md:w-auto justify-center md:justify-start">
             <div className={`p-3 rounded-xl ${darkMode ? 'bg-blue-900' : 'bg-blue-500'} shadow-lg`}>
               <MapPin className="w-8 h-8 text-white" />
             </div>
-            <div>
-              <h1 className={`text-3xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            <div className="text-center md:text-right">
+              <h1 className={`text-2xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 Meet Point
               </h1>
-              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                מצא את נקודת המפגש האופטימלית בדרך ליעד
+              <p className={`text-xs md:text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                מצא את נקודת המפגש האופטימלית
               </p>
             </div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full md:w-auto justify-center md:justify-end">
             <Button
               asChild
               variant="outline"
@@ -751,16 +751,16 @@ export default function MeetPoint() {
 
         {view === 'results' && apiResult && (
           <div className="space-y-6">
-            <div className={`flex justify-between items-center flex-wrap gap-3 p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-white/80 shadow-sm'}`}>
-              <div>
-                <h2 className={`text-2xl font-extrabold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  {currentPlanIndex === 0 ? 'תוכנית הנסיעה המומלצת' : `תוכנית חלופית ${currentPlanIndex}`}
+            <div className={`flex flex-col md:flex-row justify-between items-center gap-4 p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-white/80 shadow-sm'}`}>
+              <div className="text-center md:text-right w-full md:w-auto">
+                <h2 className={`text-xl md:text-2xl font-extrabold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  {currentPlanIndex === 0 ? 'תוכנית מומלצת' : `תוכנית חלופית ${currentPlanIndex}`}
                 </h2>
-                <p className={`text-sm mt-1 font-semibold ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
-                  העדפה: {preference === 'driver' ? 'טוב יותר לנהג' : preference === 'balanced' ? 'מאוזן' : 'טוב יותר לנוסע'}
+                <p className={`text-xs md:text-sm mt-1 font-semibold ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
+                  העדפה: {preference === 'driver' ? 'טוב לנהג' : preference === 'balanced' ? 'מאוזן' : 'טוב לנוסע'}
                 </p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap justify-center gap-2 w-full md:w-auto">
                 {alternatives.length > 0 && (
                   <Button
                     variant="outline"

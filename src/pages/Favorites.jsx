@@ -138,7 +138,7 @@ export default function Favorites() {
         }`}
         onClick={() => setSelectedFavorite(item)}
       >
-        <CardContent className="p-5">
+        <CardContent className="p-3 md:p-5">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
               <Calendar className="w-4 h-4" />
@@ -210,7 +210,7 @@ export default function Favorites() {
 
   const ResultHeader = ({ plan }) => (
     <Card className={`mb-4 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50'}`}>
-        <CardContent className="p-4 flex flex-wrap items-center justify-around gap-4 text-center">
+        <CardContent className="p-3 md:p-4 grid grid-cols-2 md:flex md:flex-wrap items-center justify-around gap-4 text-center">
             <div className="flex flex-col items-center">
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                     <Clock className="w-5 h-5"/>
@@ -317,22 +317,22 @@ export default function Favorites() {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'}`}>
       <div className="max-w-7xl mx-auto p-4 md:p-8">
-        <div className={`flex justify-between items-center mb-8 p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-white shadow-md'}`}>
-          <div className="flex items-center gap-3">
+        <div className={`flex flex-col md:flex-row justify-between items-center gap-4 mb-8 p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-white shadow-md'}`}>
+          <div className="flex items-center gap-3 w-full md:w-auto justify-center md:justify-start">
             <div className={`p-3 rounded-xl ${darkMode ? 'bg-yellow-900' : 'bg-yellow-600'} shadow-lg`}>
               <Star className="w-8 h-8 text-white fill-white" />
             </div>
-            <div>
-              <h1 className={`text-3xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            <div className="text-center md:text-right">
+              <h1 className={`text-2xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 המסלולים המועדפים שלי
               </h1>
-              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
+              <p className={`text-xs md:text-sm ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
                 כל המסלולים שסימנת בכוכב
               </p>
             </div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full md:w-auto justify-center md:justify-end">
             <Button
               asChild
               variant="outline"
