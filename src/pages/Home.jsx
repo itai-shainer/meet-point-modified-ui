@@ -66,18 +66,6 @@ const MeetingAnimation = () => {
           animate={{ cx: [50, 170, 170, 50] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.text
-          x="50"
-          y="130"
-          textAnchor="middle"
-          fill="currentColor"
-          className="text-xs font-medium fill-gray-600 dark:fill-gray-400"
-          initial={{ x: 50 }}
-          animate={{ x: [50, 170, 170, 50] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        >
-          User A
-        </motion.text>
 
         {/* User B */}
         <motion.circle
@@ -122,7 +110,7 @@ const MeetingAnimation = () => {
           animate={{ opacity: [0, 1, 1, 1, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", times: [0, 0.3, 0.4, 0.9, 1] }}
         >
-          Meet Here
+          Meet Point
         </motion.text>
 
         {/* Connecting Lines */}
