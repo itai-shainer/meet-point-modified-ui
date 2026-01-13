@@ -387,7 +387,7 @@ export default function Favorites() {
               variant="outline"
               className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900 shadow-sm'}
             >
-              <Link to={createPageUrl('MeetPoint')}>
+              <Link to={createPageUrl('App')}>
                 <ArrowRight className="w-4 h-4 ml-2" />
                 חיפוש חדש
               </Link>
@@ -422,9 +422,9 @@ export default function Favorites() {
               סמן מסלולים בכוכב כדי לשמור אותם כמועדפים
             </p>
             <Button asChild className="bg-yellow-600 hover:bg-yellow-700">
-              <Link to={createPageUrl('RouteHistory')}>
-                <History className="w-4 h-4 ml-2" />
-                עבור להיסטוריה
+              <Link to={createPageUrl('App')}>
+                <MapPin className="w-4 h-4 ml-2" />
+                חפש מסלול
               </Link>
             </Button>
           </div>

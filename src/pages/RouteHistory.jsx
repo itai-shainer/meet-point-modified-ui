@@ -383,7 +383,7 @@ export default function RouteHistory() {
               variant="outline"
               className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900 shadow-sm'}
             >
-              <Link to={createPageUrl('MeetPoint')}>
+              <Link to={createPageUrl('App')}>
                 <ArrowRight className="w-4 h-4 ml-2" />
                 חיפוש חדש
               </Link>
@@ -418,7 +418,7 @@ export default function RouteHistory() {
               בצע חיפוש ראשון כדי להתחיל לבנות את ההיסטוריה שלך
             </p>
             <Button asChild className="bg-blue-600 hover:bg-blue-700">
-              <Link to={createPageUrl('MeetPoint')}>
+              <Link to={createPageUrl('App')}>
                 <MapPin className="w-4 h-4 ml-2" />
                 חפש מסלול
               </Link>

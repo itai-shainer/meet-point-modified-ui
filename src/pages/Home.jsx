@@ -59,7 +59,7 @@ export default function Home() {
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </Button>
               <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all">
-                <Link to={createPageUrl('MeetPoint')}>
+                <Link to={createPageUrl('App')}>
                   התחבר
                   <ArrowRight className="w-4 h-4 mr-2" />
                 </Link>
@@ -85,8 +85,8 @@ export default function Home() {
                 הוגן לכולם, בכל פעם.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all text-lg px-8 py-6 rounded-full">
-                  <Link to={createPageUrl('MeetPoint')}>
+                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform">
+                  <Link to={createPageUrl('App')}>
                     <MapPin className="w-5 h-5 ml-2" />
                     מצא נקודת מפגש
                   </Link>
@@ -188,8 +188,8 @@ export default function Home() {
               <p className="text-xl text-blue-100 mb-8">
                 הצטרף אלינו והתחל לחסוך זמן כבר היום
               </p>
-              <Button asChild size="lg" className="bg-white hover:bg-gray-100 text-blue-600 shadow-lg hover:shadow-xl transition-all text-lg px-10 py-6 rounded-full">
-                <Link to={createPageUrl('MeetPoint')}>
+              <Button asChild size="lg" className="bg-white hover:bg-gray-100 text-blue-600 shadow-lg hover:shadow-xl transition-all text-lg px-10 py-6 rounded-full hover:scale-105 transition-transform">
+                <Link to={createPageUrl('App')}>
                   <MapPin className="w-5 h-5 ml-2" />
                   התחל עכשיו
                 </Link>
