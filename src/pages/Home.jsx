@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Clock, Users, TrendingUp, ArrowRight, CheckCircle2, Sun, Moon } from "lucide-react";
+import { MapPin, Zap, Shield, Sparkles, ArrowRight, Check, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
+import { motion } from "framer-motion";
 
 const getInitialDarkMode = () => {
   const saved = localStorage.getItem('darkMode');
@@ -10,6 +11,148 @@ const getInitialDarkMode = () => {
     return saved === 'true';
   }
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
+// SEO Component
+const SEOHead = () => {
+  useEffect(() => {
+    document.title = "Meet Point - The Fair Meeting Spot Calculator";
+    
+    // Add meta description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', 'Find the perfect middle ground. The intelligent meeting point calculator that saves time, saves gas, and meets halfway—fairly.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Find the perfect middle ground. The intelligent meeting point calculator that saves time, saves gas, and meets halfway—fairly.';
+      document.head.appendChild(meta);
+    }
+
+    // Add JSON-LD Schema
+    const schemaScript = document.createElement('script');
+    schemaScript.type = 'application/ld+json';
+    schemaScript.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Meet Point",
+      "url": window.location.origin,
+      "description": "The intelligent meeting point calculator. Save time, save gas, and meet halfway—fairly."
+    });
+    document.head.appendChild(schemaScript);
+
+    return () => {
+      if (schemaScript.parentNode) {
+        schemaScript.parentNode.removeChild(schemaScript);
+      }
+    };
+  }, []);
+
+  return null;
+};
+
+// Animated Meeting Point Visual
+const MeetingAnimation = () => {
+  return (
+    <div className="relative w-full h-64 flex items-center justify-center">
+      <svg className="w-full h-full" viewBox="0 0 400 200">
+        {/* User A */}
+        <motion.circle
+          cx="50"
+          cy="100"
+          r="12"
+          fill="#3B82F6"
+          initial={{ cx: 50 }}
+          animate={{ cx: [50, 170, 170, 50] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.text
+          x="50"
+          y="130"
+          textAnchor="middle"
+          fill="currentColor"
+          className="text-xs font-medium fill-gray-600 dark:fill-gray-400"
+          initial={{ x: 50 }}
+          animate={{ x: [50, 170, 170, 50] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          User A
+        </motion.text>
+
+        {/* User B */}
+        <motion.circle
+          cx="350"
+          cy="100"
+          r="12"
+          fill="#10B981"
+          initial={{ cx: 350 }}
+          animate={{ cx: [350, 230, 230, 350] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.text
+          x="350"
+          y="130"
+          textAnchor="middle"
+          fill="currentColor"
+          className="text-xs font-medium fill-gray-600 dark:fill-gray-400"
+          initial={{ x: 350 }}
+          animate={{ x: [350, 230, 230, 350] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          User B
+        </motion.text>
+
+        {/* Meeting Point */}
+        <motion.circle
+          cx="200"
+          cy="100"
+          r="8"
+          fill="#8B5CF6"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: [0, 1.5, 1, 1, 0], opacity: [0, 1, 1, 1, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", times: [0, 0.3, 0.4, 0.9, 1] }}
+        />
+        <motion.text
+          x="200"
+          y="80"
+          textAnchor="middle"
+          fill="currentColor"
+          className="text-xs font-bold fill-purple-600 dark:fill-purple-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1, 1, 1, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", times: [0, 0.3, 0.4, 0.9, 1] }}
+        >
+          Meet Here
+        </motion.text>
+
+        {/* Connecting Lines */}
+        <motion.line
+          x1="50"
+          y1="100"
+          x2="200"
+          y2="100"
+          stroke="#3B82F6"
+          strokeWidth="2"
+          strokeDasharray="5,5"
+          initial={{ x1: 50, x2: 50 }}
+          animate={{ x1: [50, 50, 50, 50], x2: [50, 200, 200, 50] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", times: [0, 0.3, 0.9, 1] }}
+        />
+        <motion.line
+          x1="350"
+          y1="100"
+          x2="200"
+          y2="100"
+          stroke="#10B981"
+          strokeWidth="2"
+          strokeDasharray="5,5"
+          initial={{ x1: 350, x2: 350 }}
+          animate={{ x1: [350, 350, 350, 350], x2: [350, 200, 200, 350] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", times: [0, 0.3, 0.9, 1] }}
+        />
+      </svg>
+    </div>
+  );
 };
 
 export default function Home() {
@@ -36,189 +179,305 @@ export default function Home() {
   }, [darkMode]);
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-white via-blue-50/30 to-white'}`} dir="rtl">
-      {/* Navbar */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? (darkMode ? 'bg-gray-800/80 backdrop-blur-lg shadow-sm' : 'bg-white/80 backdrop-blur-lg shadow-sm') : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
-                <MapPin className="w-6 h-6 text-white" />
-              </div>
-              <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent'}`}>
-                Meet Point
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setDarkMode(!darkMode)}
-                className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'}
-              >
-                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </Button>
-              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all">
-                <Link to={createPageUrl('App')}>
-                  התחבר
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
+    <>
+      <SEOHead />
+      <div className="min-h-screen bg-white dark:bg-gray-950 relative overflow-hidden" dir="rtl">
+        {/* Mesh Gradient Background */}
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-right">
-              <h1 className={`text-4xl md:text-6xl font-bold mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                מצא את נקודת המפגש <br />
-                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  המושלמת
+        {/* Navbar */}
+        <motion.nav 
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl shadow-lg' : 'bg-transparent'}`}
+        >
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg">
+                  <MapPin className="w-7 h-7 text-white" />
+                </div>
+                <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Meet Point
                 </span>
-              </h1>
-              <p className={`text-lg md:text-xl mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                מחשבון נקודת המפגש החכם שחוסך לך ולחבריך זמן ונסיעה. <br />
-                הוגן לכולם, בכל פעם.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform">
+              </div>
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="rounded-full hover:scale-110 transition-transform"
+                >
+                  {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </Button>
+                <Button 
+                  asChild 
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg rounded-full px-6 hover:scale-105 transition-all"
+                >
                   <Link to={createPageUrl('App')}>
-                    <MapPin className="w-5 h-5 ml-2" />
-                    מצא נקודת מפגש
+                    התחבר
+                    <ArrowRight className="w-4 h-4 mr-2" />
                   </Link>
                 </Button>
               </div>
-              <div className={`flex items-center gap-6 mt-8 justify-center lg:justify-start text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  <span>ללא התחייבות</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  <span>התחבר עם Google</span>
-                </div>
-              </div>
             </div>
+          </div>
+        </motion.nav>
 
-            {/* Visual Mockup */}
-            <div className="relative hidden lg:block">
-              <div className="relative">
-                {/* Glassmorphism Card */}
-                <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
-                  <div className="space-y-4">
-                    <div className="h-12 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl animate-pulse"></div>
-                    <div className="h-12 bg-gradient-to-r from-green-100 to-green-50 rounded-xl animate-pulse delay-75"></div>
-                    <div className="h-12 bg-gradient-to-r from-purple-100 to-purple-50 rounded-xl animate-pulse delay-150"></div>
-                    <div className="h-32 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center">
-                      <MapPin className="w-16 h-16 text-blue-500" />
-                    </div>
+        {/* Hero Section */}
+        <section className="pt-40 pb-20 px-6 md:px-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center lg:text-right"
+              >
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                  className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight"
+                  style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 800 }}
+                >
+                  <span className="text-gray-900 dark:text-white">Find the</span><br />
+                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    Perfect Middle Ground
+                  </span>
+                </motion.h1>
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="text-xl md:text-2xl mb-10 text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+                >
+                  The intelligent meeting point calculator. Save time, save gas, and meet halfway—fairly.
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                >
+                  <Button 
+                    asChild 
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-xl px-12 py-8 rounded-full hover:scale-110 transition-all group"
+                  >
+                    <Link to={createPageUrl('App')}>
+                      <span className="font-bold">Find a Meeting Point</span>
+                      <ArrowRight className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </motion.div>
+
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8, duration: 0.8 }}
+                  className="flex items-center gap-8 mt-10 justify-center lg:justify-start text-sm text-gray-600 dark:text-gray-400"
+                >
+                  <div className="flex items-center gap-2">
+                    <Check className="w-5 h-5 text-green-500" />
+                    <span>No signup required</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-5 h-5 text-green-500" />
+                    <span>Always free</span>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Animated Visual */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4, duration: 1 }}
+                className="relative"
+              >
+                <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/20 dark:border-gray-800/20">
+                  <MeetingAnimation />
+                </div>
+                
+                {/* Floating Orbs */}
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-blue-500 rounded-full opacity-30 blur-2xl animate-pulse"></div>
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Bento Grid Features */}
+        <section className="py-24 px-6 md:px-12">
+          <div className="max-w-7xl mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900 dark:text-white">
+                Why Choose Meet Point?
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400">
+                Intelligent algorithms. Fair results. Zero hassle.
+              </p>
+            </motion.div>
+
+            {/* Bento Grid Layout */}
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Large Feature 1 */}
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className="md:col-span-2 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 border border-white/20 dark:border-gray-800/20 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+              >
+                <div className="flex items-start gap-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <Zap className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Public Transit Integration</h3>
+                    <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                      Full support for buses, trains, and mixed-mode travel. We calculate the optimal meeting point considering all transportation options.
+                    </p>
                   </div>
                 </div>
-                {/* Floating Elements */}
-                <div className="absolute -top-6 -right-6 w-20 h-20 bg-blue-500 rounded-full opacity-20 blur-2xl animate-pulse"></div>
-                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-500 rounded-full opacity-20 blur-3xl animate-pulse delay-300"></div>
+              </motion.div>
+
+              {/* Small Feature 1 */}
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 border border-white/20 dark:border-gray-800/20 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+              >
+                <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                  <Shield className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Fairness Algorithms</h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Balanced travel times for everyone involved.
+                </p>
+              </motion.div>
+
+              {/* Small Feature 2 */}
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 border border-white/20 dark:border-gray-800/20 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+              >
+                <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                  <Sparkles className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Secure Locations</h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  Safe, public meeting spots prioritized.
+                </p>
+              </motion.div>
+
+              {/* Large Feature 2 */}
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="md:col-span-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all hover:scale-105 text-white"
+              >
+                <h3 className="text-3xl font-bold mb-4">Real-Time Traffic & Transit Data</h3>
+                <p className="text-xl text-blue-100 leading-relaxed">
+                  Live updates ensure you always get the fastest, most efficient route—no matter what time of day.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-24 px-6 md:px-12">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-16 text-center shadow-2xl border border-white/20 dark:border-gray-800/20 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
+              <div className="relative z-10">
+                <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900 dark:text-white">
+                  Ready to Find Your Perfect Meeting Spot?
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-400 mb-10">
+                  Join thousands who've already saved time and gas. Get started in seconds.
+                </p>
+                <Button 
+                  asChild 
+                  size="lg"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-xl px-12 py-8 rounded-full hover:scale-110 transition-all"
+                >
+                  <Link to={createPageUrl('App')}>
+                    <span className="font-bold">Start Now - It's Free</span>
+                    <ArrowRight className="w-6 h-6 mr-3" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-12 px-6 md:px-12 border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600">
+                  <MapPin className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Meet Point
+                </span>
+              </div>
+              <div className="flex items-center gap-8 text-sm text-gray-600 dark:text-gray-400">
+                <span>© 2026 Meet Point</span>
+                <a href="#" className="hover:text-blue-600 transition-colors">Privacy</a>
+                <a href="#" className="hover:text-blue-600 transition-colors">Terms</a>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </footer>
 
-      {/* Features Section */}
-      <section className={`py-20 px-4 md:px-8 ${darkMode ? 'bg-gray-800/50' : 'bg-white/50'}`}>
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              למה Meet Point?
-            </h2>
-            <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              חישוב חכם, חיסכון בזמן, הוגנות מרבית
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className={`backdrop-blur-sm rounded-2xl p-8 shadow-lg border hover:shadow-xl transition-all ${darkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-white/80 border-gray-100'}`}>
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
-                <Users className="w-7 h-7 text-white" />
-              </div>
-              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>הוגנות מלאה</h3>
-              <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                האלגוריתם שלנו מחשב את נקודת המפגש האופטימלית לכל המשתתפים, כך שאף אחד לא נוסע יותר מדי.
-              </p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className={`backdrop-blur-sm rounded-2xl p-8 shadow-lg border hover:shadow-xl transition-all ${darkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-white/80 border-gray-100'}`}>
-              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6">
-                <Clock className="w-7 h-7 text-white" />
-              </div>
-              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>חיסכון בזמן</h3>
-              <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                פתרון מיידי תוך שניות. אין יותר צורך בחישובים ידניים או ויכוחים ארוכים על מיקום המפגש.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className={`backdrop-blur-sm rounded-2xl p-8 shadow-lg border hover:shadow-xl transition-all ${darkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-white/80 border-gray-100'}`}>
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
-                <TrendingUp className="w-7 h-7 text-white" />
-              </div>
-              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>אינטגרציה עם תחבורה ציבורית</h3>
-              <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                תמיכה מלאה בתחבורה ציבורית, כולל חישוב מסלולי אוטובוס ורכבת לנוחות מקסימלית.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-12 md:p-16 text-center shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRINTJ2NGMwIDIuMjEgMS43OSA0IDQgNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-50"></div>
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                מוכן למצוא את נקודת המפגש המושלמת?
-              </h2>
-              <p className="text-xl text-blue-100 mb-8">
-                הצטרף אלינו והתחל לחסוך זמן כבר היום
-              </p>
-              <Button asChild size="lg" className="bg-white hover:bg-gray-100 text-blue-600 shadow-lg hover:shadow-xl transition-all text-lg px-10 py-6 rounded-full hover:scale-105 transition-transform">
-                <Link to={createPageUrl('App')}>
-                  <MapPin className="w-5 h-5 ml-2" />
-                  התחל עכשיו
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className={`py-12 px-4 md:px-8 border-t ${darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200 bg-white/50'}`}>
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600">
-                <MapPin className="w-5 h-5 text-white" />
-              </div>
-              <span className={`text-xl font-bold ${darkMode ? 'text-white' : 'bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent'}`}>
-                Meet Point
-              </span>
-            </div>
-            <div className={`flex flex-wrap items-center gap-6 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              <span>© 2026 Meet Point</span>
-              <a href="#" className="hover:text-blue-600 transition-colors">פרטיות</a>
-              <a href="#" className="hover:text-blue-600 transition-colors">תנאי שימוש</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+        {/* Blob Animation Styles */}
+        <style>{`
+          @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(30px, 10px) scale(1.05); }
+          }
+          .animate-blob {
+            animation: blob 15s infinite;
+          }
+          .animation-delay-2000 {
+            animation-delay: 2s;
+          }
+          .animation-delay-4000 {
+            animation-delay: 4s;
+          }
+        `}</style>
+      </div>
+    </>
   );
 }
