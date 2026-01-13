@@ -81,7 +81,7 @@ export default function Home() {
                 </span>
               </h1>
               <p className={`text-lg md:text-xl mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                מחשבון נקודת המפגש החכם שחוסך לך זמן ונסיעה. <br />
+                מחשבון נקודת המפגש החכם שחוסך לך ולחבריך זמן ונסיעה. <br />
                 הוגן לכולם, בכל פעם.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
