@@ -245,9 +245,9 @@ export default function Home() {
                   className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight"
                   style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 800 }}
                 >
-                  <span className="text-gray-900 dark:text-white">Find the</span><br />
+                  <span className="text-gray-900 dark:text-white">מצא את</span><br />
                   <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    Perfect Middle Ground
+                    נקודת המפגש המושלמת
                   </span>
                 </motion.h1>
                 
@@ -257,7 +257,7 @@ export default function Home() {
                   transition={{ delay: 0.4, duration: 0.8 }}
                   className="text-xl md:text-2xl mb-10 text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto lg:mx-0"
                 >
-                  The intelligent meeting point calculator. Save time, save gas, and meet halfway—fairly.
+                  מחשבון נקודת המפגש החכם שחוסך לך ולחבריך זמן ונסיעה. הוגן לכולם, בכל פעם.
                 </motion.p>
 
                 <motion.div
@@ -271,7 +271,7 @@ export default function Home() {
                     className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-xl px-12 py-8 rounded-full hover:scale-110 transition-all group"
                   >
                     <Link to={createPageUrl('App')}>
-                      <span className="font-bold">Find a Meeting Point</span>
+                      <span className="font-bold">מצא נקודת מפגש</span>
                       <ArrowRight className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </Button>
@@ -285,11 +285,11 @@ export default function Home() {
                 >
                   <div className="flex items-center gap-2">
                     <Check className="w-5 h-5 text-green-500" />
-                    <span>No signup required</span>
+                    <span>ללא הרשמה</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-5 h-5 text-green-500" />
-                    <span>Always free</span>
+                    <span>תמיד חינם</span>
                   </div>
                 </motion.div>
               </motion.div>
@@ -324,10 +324,10 @@ export default function Home() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900 dark:text-white">
-                Why Choose Meet Point?
+                למה Meet Point?
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400">
-                Intelligent algorithms. Fair results. Zero hassle.
+                אלגוריתמים חכמים. תוצאות הוגנות. אפס טרחה.
               </p>
             </motion.div>
 
@@ -346,9 +346,9 @@ export default function Home() {
                     <Zap className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Public Transit Integration</h3>
+                    <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">אינטגרציה עם תחבורה ציבורית</h3>
                     <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                      Full support for buses, trains, and mixed-mode travel. We calculate the optimal meeting point considering all transportation options.
+                      תמיכה מלאה באוטובוסים, רכבות ונסיעות משולבות. אנחנו מחשבים את נקודת המפגש האופטימלית תוך התחשבות בכל אפשרויות התחבורה.
                     </p>
                   </div>
                 </div>
@@ -365,9 +365,9 @@ export default function Home() {
                 <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <Shield className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Fairness Algorithms</h3>
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">אלגוריתמי הוגנות</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Balanced travel times for everyone involved.
+                  זמני נסיעה מאוזנים לכל המעורבים
                 </p>
               </motion.div>
 
@@ -382,9 +382,9 @@ export default function Home() {
                 <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <Sparkles className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Secure Locations</h3>
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">מיקומים בטוחים</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Safe, public meeting spots prioritized.
+                  עדיפות למקומות מפגש ציבוריים ובטוחים
                 </p>
               </motion.div>
 
@@ -396,9 +396,9 @@ export default function Home() {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="md:col-span-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all hover:scale-105 text-white"
               >
-                <h3 className="text-3xl font-bold mb-4">Real-Time Traffic & Transit Data</h3>
+                <h3 className="text-3xl font-bold mb-4">נתוני תנועה ותחבורה בזמן אמת</h3>
                 <p className="text-xl text-blue-100 leading-relaxed">
-                  Live updates ensure you always get the fastest, most efficient route—no matter what time of day.
+                  עדכונים חיים מבטיחים שתמיד תקבל את המסלול המהיר והיעיל ביותר - לא משנה באיזו שעה ביום.
                 </p>
               </motion.div>
             </div>
@@ -418,10 +418,10 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
               <div className="relative z-10">
                 <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900 dark:text-white">
-                  Ready to Find Your Perfect Meeting Spot?
+                  מוכן למצוא את נקודת המפגש המושלמת?
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 mb-10">
-                  Join thousands who've already saved time and gas. Get started in seconds.
+                  הצטרף לאלפים שכבר חסכו זמן ודלק. התחל תוך שניות.
                 </p>
                 <Button 
                   asChild 
@@ -429,7 +429,7 @@ export default function Home() {
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-xl px-12 py-8 rounded-full hover:scale-110 transition-all"
                 >
                   <Link to={createPageUrl('App')}>
-                    <span className="font-bold">Start Now - It's Free</span>
+                    <span className="font-bold">התחל עכשיו - חינם</span>
                     <ArrowRight className="w-6 h-6 mr-3" />
                   </Link>
                 </Button>
@@ -452,8 +452,8 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-8 text-sm text-gray-600 dark:text-gray-400">
                 <span>© 2026 Meet Point</span>
-                <a href="#" className="hover:text-blue-600 transition-colors">Privacy</a>
-                <a href="#" className="hover:text-blue-600 transition-colors">Terms</a>
+                <a href="#" className="hover:text-blue-600 transition-colors">פרטיות</a>
+                <a href="#" className="hover:text-blue-600 transition-colors">תנאי שימוש</a>
               </div>
             </div>
           </div>
