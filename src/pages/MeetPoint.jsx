@@ -50,8 +50,26 @@ const formatDuration = (minutes) => {
 };
 
 export default function MeetPoint() {
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [view, setView] = useState('search');
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+
+  // Auth Guard - Redirect to login if not authenticated
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const isAuthenticated = await base44.auth.isAuthenticated();
+        if (!isAuthenticated) {
+          base44.auth.redirectToLogin(window.location.pathname);
+          return;
+        }
+        setIsAuthChecking(false);
+      } catch (error) {
+        base44.auth.redirectToLogin(window.location.pathname);
+      }
+    };
+    checkAuth();
+  }, []);
 
   const [origin1, setOrigin1] = useState("");
   const [origin2, setOrigin2] = useState("");
@@ -456,6 +474,17 @@ export default function MeetPoint() {
         </CardContent>
     </Card>
   );
+
+  if (isAuthChecking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <p className="text-gray-600">בודק הרשאות...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'}`}>

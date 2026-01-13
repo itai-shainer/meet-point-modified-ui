@@ -42,11 +42,29 @@ const formatDuration = (minutes) => {
 };
 
 export default function Favorites() {
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
   const [selectedFavorite, setSelectedFavorite] = useState(null);
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [togglingFavorite, setTogglingFavorite] = useState(null);
   const queryClient = useQueryClient();
+
+  // Auth Guard
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const isAuthenticated = await base44.auth.isAuthenticated();
+        if (!isAuthenticated) {
+          base44.auth.redirectToLogin(window.location.pathname);
+          return;
+        }
+        setIsAuthChecking(false);
+      } catch (error) {
+        base44.auth.redirectToLogin(window.location.pathname);
+      }
+    };
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -249,6 +267,17 @@ export default function Favorites() {
         </CardContent>
     </Card>
   );
+
+  if (isAuthChecking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+          <p className="text-gray-600">בודק הרשאות...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (selectedFavorite) {
     const plan = selectedFavorite.api_response?.best_plan;

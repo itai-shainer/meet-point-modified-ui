@@ -1,12 +1,14 @@
+import Favorites from './pages/Favorites';
+import Home from './pages/Home';
 import MeetPoint from './pages/MeetPoint';
 import RouteHistory from './pages/RouteHistory';
-import Favorites from './pages/Favorites';
 
 
 export const PAGES = {
+    "Favorites": Favorites,
+    "Home": Home,
     "MeetPoint": MeetPoint,
     "RouteHistory": RouteHistory,
-    "Favorites": Favorites,
 }
 
 export const pagesConfig = {
