@@ -167,7 +167,7 @@ export default function Home() {
               <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
                 <TrendingUp className="w-7 h-7 text-white" />
               </div>
-              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>אינטגרציה עם תחב״צ</h3>
+              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>אינטגרציה עם תחבורה ציבורית</h3>
               <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 תמיכה מלאה בתחבורה ציבורית, כולל חישוב מסלולי אוטובוס ורכבת לנוחות מקסימלית.
               </p>
