@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Clock, Users, TrendingUp, ArrowRight, CheckCircle2 } from "lucide-react";
+import { MapPin, Clock, Users, TrendingUp, ArrowRight, CheckCircle2, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
 
+const getInitialDarkMode = () => {
+  const saved = localStorage.getItem('darkMode');
+  if (saved !== null) {
+    return saved === 'true';
+  }
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,26 +24,47 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.setItem('darkMode', darkMode.toString());
+    }
+  }, [darkMode]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white" dir="rtl">
+    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-white via-blue-50/30 to-white'}`} dir="rtl">
       {/* Navbar */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-lg shadow-sm' : 'bg-transparent'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? (darkMode ? 'bg-gray-800/80 backdrop-blur-lg shadow-sm' : 'bg-white/80 backdrop-blur-lg shadow-sm') : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
                 <MapPin className="w-6 h-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent'}`}>
                 Meet Point
               </span>
             </div>
-            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all">
-              <Link to={createPageUrl('MeetPoint')}>
-                התחבר
-                <ArrowRight className="w-4 h-4 mr-2" />
-              </Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setDarkMode(!darkMode)}
+                className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'}
+              >
+                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all">
+                <Link to={createPageUrl('MeetPoint')}>
+                  התחבר
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
@@ -44,13 +74,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-right">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className={`text-4xl md:text-6xl font-bold mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 מצא את נקודת המפגש <br />
                 <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                   המושלמת
                 </span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+              <p className={`text-lg md:text-xl mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 מחשבון נקודת המפגש החכם שחוסך לך זמן ונסיעה. <br />
                 הוגן לכולם, בכל פעם.
               </p>
@@ -62,7 +92,7 @@ export default function Home() {
                   </Link>
                 </Button>
               </div>
-              <div className="flex items-center gap-6 mt-8 justify-center lg:justify-start text-sm text-gray-600">
+              <div className={`flex items-center gap-6 mt-8 justify-center lg:justify-start text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5 text-green-500" />
                   <span>ללא התחייבות</span>
@@ -98,47 +128,47 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 md:px-8 bg-white/50">
+      <section className={`py-20 px-4 md:px-8 ${darkMode ? 'bg-gray-800/50' : 'bg-white/50'}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               למה Meet Point?
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
               חישוב חכם, חיסכון בזמן, הוגנות מרבית
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+            <div className={`backdrop-blur-sm rounded-2xl p-8 shadow-lg border hover:shadow-xl transition-all ${darkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-white/80 border-gray-100'}`}>
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
                 <Users className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">הוגנות מלאה</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>הוגנות מלאה</h3>
+              <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 האלגוריתם שלנו מחשב את נקודת המפגש האופטימלית לכל המשתתפים, כך שאף אחד לא נוסע יותר מדי.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+            <div className={`backdrop-blur-sm rounded-2xl p-8 shadow-lg border hover:shadow-xl transition-all ${darkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-white/80 border-gray-100'}`}>
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6">
                 <Clock className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">חיסכון בזמן</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>חיסכון בזמן</h3>
+              <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 פתרון מיידי תוך שניות. אין יותר צורך בחישובים ידניים או ויכוחים ארוכים על מיקום המפגש.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+            <div className={`backdrop-blur-sm rounded-2xl p-8 shadow-lg border hover:shadow-xl transition-all ${darkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-white/80 border-gray-100'}`}>
               <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
                 <TrendingUp className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">אינטגרציה עם תחב״צ</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>אינטגרציה עם תחב״צ</h3>
+              <p className={`leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 תמיכה מלאה בתחבורה ציבורית, כולל חישוב מסלולי אוטובוס ורכבת לנוחות מקסימלית.
               </p>
             </div>
@@ -170,18 +200,18 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 md:px-8 border-t border-gray-200 bg-white/50">
+      <footer className={`py-12 px-4 md:px-8 border-t ${darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200 bg-white/50'}`}>
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600">
                 <MapPin className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              <span className={`text-xl font-bold ${darkMode ? 'text-white' : 'bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent'}`}>
                 Meet Point
               </span>
             </div>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600">
+            <div className={`flex flex-wrap items-center gap-6 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
               <span>© 2026 Meet Point</span>
               <a href="#" className="hover:text-blue-600 transition-colors">פרטיות</a>
               <a href="#" className="hover:text-blue-600 transition-colors">תנאי שימוש</a>

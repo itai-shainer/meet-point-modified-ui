@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   MapPin, Loader2, Search, ArrowRight, Car, Bus, User, Repeat,
-  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star
+  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star, Home
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -505,6 +505,16 @@ export default function MeetPoint() {
           </div>
 
           <div className="flex gap-2 w-full md:w-auto justify-center md:justify-end">
+            <Button
+              asChild
+              variant="outline"
+              size="icon"
+              className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
+            >
+              <Link to={createPageUrl('Home')}>
+                <Home className="w-5 h-5" />
+              </Link>
+            </Button>
             <Button
               asChild
               variant="outline"

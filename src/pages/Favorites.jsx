@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   MapPin, ArrowRight, Clock, Award, Calendar, 
-  Loader2, Sun, Moon, ChevronLeft, User, Navigation, Star, History
+  Loader2, Sun, Moon, ChevronLeft, User, Navigation, Star, History, Home
 } from "lucide-react";
 import { Link } from "react-router-dom";
 const createPageUrl = (pageName) => `/${pageName}`;
@@ -362,6 +362,16 @@ export default function Favorites() {
           </div>
 
           <div className="flex gap-2 w-full md:w-auto justify-center md:justify-end">
+            <Button
+              asChild
+              variant="outline"
+              size="icon"
+              className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300 shadow-sm'}
+            >
+              <Link to={createPageUrl('Home')}>
+                <Home className="w-5 h-5" />
+              </Link>
+            </Button>
             <Button
               asChild
               variant="outline"
