@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { MapPin, Clock, Users, TrendingUp, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
-import SEOHead from "../components/SEOHead";
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,13 +16,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      <SEOHead 
-        title="Meet Point - מצא את נקודת המפגש המושלמת"
-        description="מחשבון נקודת מפגש חכם שחוסך זמן ונסיעה. הוגן לכולם, בכל פעם. תמיכה מלאה בתחבורה ציבורית."
-        path="/"
-      />
-      <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/30 to-white" dir="rtl">
       {/* Navbar */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-lg shadow-sm' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
@@ -197,6 +190,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-    </>
   );
 }
