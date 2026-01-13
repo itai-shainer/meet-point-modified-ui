@@ -146,12 +146,12 @@ export default function RouteHistory() {
 
     return (
       <Card 
-        className={`cursor-pointer transition-all hover:shadow-lg relative ${
-          darkMode ? 'bg-gray-800 border-gray-700 hover:border-blue-600' : 'bg-white hover:border-blue-400'
+        className={`cursor-pointer transition-all hover:shadow-2xl hover:-translate-y-1 relative backdrop-blur-sm border ${
+          darkMode ? 'bg-gray-800/90 border-gray-700/50 hover:border-purple-500/50' : 'bg-white/90 border-gray-200/50 hover:border-purple-400/50'
         }`}
         onClick={() => setSelectedHistory(item)}
       >
-        <CardContent className="p-3 md:p-5">
+        <CardContent className="p-4 md:p-6">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
               <Calendar className="w-4 h-4" />
@@ -340,11 +340,20 @@ export default function RouteHistory() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'}`}>
-      <div className="max-w-7xl mx-auto p-4 md:p-8">
-        <div className={`flex flex-col md:flex-row justify-between items-center gap-4 mb-8 p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-white shadow-md'}`}>
+    <div className={`min-h-screen transition-colors duration-300 relative ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      {/* Subtle mesh gradient background */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none" 
+           style={{
+             backgroundImage: darkMode 
+               ? 'radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.5) 0px, transparent 50%), radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.5) 0px, transparent 50%), radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 0.5) 0px, transparent 50%), radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 0.5) 0px, transparent 50%), radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.5) 0px, transparent 50%), radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.5) 0px, transparent 50%), radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.5) 0px, transparent 50%)'
+               : 'radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.2) 0px, transparent 50%), radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.2) 0px, transparent 50%), radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 0.2) 0px, transparent 50%), radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 0.2) 0px, transparent 50%), radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.2) 0px, transparent 50%), radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.2) 0px, transparent 50%), radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.2) 0px, transparent 50%)'
+           }}
+      />
+      <div className="max-w-7xl mx-auto p-4 md:p-8 relative z-10">
+        {/* Glass navbar */}
+        <div className={`flex flex-col md:flex-row justify-between items-center gap-4 mb-8 p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
           <div className="flex items-center gap-3 w-full md:w-auto justify-center md:justify-start">
-            <div className={`p-3 rounded-xl ${darkMode ? 'bg-purple-900' : 'bg-purple-600'} shadow-lg`}>
+            <div className="p-3 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 shadow-lg">
               <MapPin className="w-8 h-8 text-white" />
             </div>
             <div className="text-center md:text-right">
@@ -362,7 +371,7 @@ export default function RouteHistory() {
               asChild
               variant="outline"
               size="icon"
-              className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300 shadow-sm'}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               <Link to={createPageUrl('Home')}>
                 <Home className="w-5 h-5" />
@@ -372,7 +381,7 @@ export default function RouteHistory() {
               asChild
               variant="outline"
               size="icon"
-              className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300 shadow-sm'}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               <Link to={createPageUrl('Favorites')}>
                 <Star className="w-5 h-5" />
@@ -381,7 +390,7 @@ export default function RouteHistory() {
             <Button
               asChild
               variant="outline"
-              className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900 shadow-sm'}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50 text-white' : 'bg-white/50 border-gray-200/50 hover:bg-white/70 text-gray-900'}`}
             >
               <Link to={createPageUrl('App')}>
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -392,7 +401,7 @@ export default function RouteHistory() {
               variant="outline"
               size="icon"
               onClick={() => setDarkMode(!darkMode)}
-              className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300 shadow-sm'}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>

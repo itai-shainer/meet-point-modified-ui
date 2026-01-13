@@ -477,11 +477,20 @@ export default function App() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'}`}>
-      <div className="max-w-7xl mx-auto p-4 md:p-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+    <div className={`min-h-screen transition-colors duration-300 relative ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      {/* Subtle mesh gradient background */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none" 
+           style={{
+             backgroundImage: darkMode 
+               ? 'radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.5) 0px, transparent 50%), radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.5) 0px, transparent 50%), radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 0.5) 0px, transparent 50%), radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 0.5) 0px, transparent 50%), radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.5) 0px, transparent 50%), radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.5) 0px, transparent 50%), radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.5) 0px, transparent 50%)'
+               : 'radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.2) 0px, transparent 50%), radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.2) 0px, transparent 50%), radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 0.2) 0px, transparent 50%), radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 0.2) 0px, transparent 50%), radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.2) 0px, transparent 50%), radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.2) 0px, transparent 50%), radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.2) 0px, transparent 50%)'
+           }}
+      />
+      <div className="max-w-7xl mx-auto p-4 md:p-8 relative z-10">
+        {/* Glass navbar */}
+        <div className={`flex flex-col md:flex-row justify-between items-center gap-4 mb-8 p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
           <div className="flex items-center gap-3 w-full md:w-auto justify-center md:justify-start">
-            <div className={`p-3 rounded-xl ${darkMode ? 'bg-blue-900' : 'bg-blue-500'} shadow-lg`}>
+            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 shadow-lg">
               <MapPin className="w-8 h-8 text-white" />
             </div>
             <div className="text-center md:text-right">
@@ -499,7 +508,7 @@ export default function App() {
               asChild
               variant="outline"
               size="icon"
-              className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               <Link to={createPageUrl('Home')}>
                 <Home className="w-5 h-5" />
@@ -509,7 +518,7 @@ export default function App() {
               asChild
               variant="outline"
               size="icon"
-              className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               <Link to={createPageUrl('Favorites')}>
                 <Star className="w-5 h-5" />
@@ -519,7 +528,7 @@ export default function App() {
               asChild
               variant="outline"
               size="icon"
-              className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               <Link to={createPageUrl('RouteHistory')}>
                 <History className="w-5 h-5" />
@@ -529,7 +538,7 @@ export default function App() {
               variant="outline"
               size="icon"
               onClick={() => setDarkMode(!darkMode)}
-              className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
@@ -538,7 +547,8 @@ export default function App() {
 
         {view === 'search' && (
           <div className="space-y-6">
-            <div className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'} rounded-2xl shadow-xl p-6 md:p-8 border-2`}>
+            {/* Floating Glass Panel */}
+            <div className={`rounded-2xl shadow-2xl p-6 md:p-8 backdrop-blur-md border ${darkMode ? 'bg-gray-900/90 border-white/20' : 'bg-white/90 border-white/20'}`}>
               <div className="space-y-6">
                 <div className="space-y-4">
                   <div className="relative">
@@ -558,7 +568,7 @@ export default function App() {
                         onFocus={() => setShowSuggestions1(true)}
                         onBlur={() => setTimeout(() => setShowSuggestions1(false), 200)}
                         placeholder="הכנס כתובת מלאה"
-                        className={`pr-10 ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : ''}`}
+                        className={`pr-10 rounded-full border-0 transition-all ${darkMode ? 'bg-gray-800 text-white placeholder:text-gray-400 focus:bg-gray-700' : 'bg-gray-100 focus:bg-white focus:shadow-md'}`}
                       />
                       {loadingAddresses1 && (
                         <Loader2 className="absolute left-3 top-3 w-4 h-4 animate-spin text-blue-500" />
@@ -602,7 +612,7 @@ export default function App() {
                         onFocus={() => setShowSuggestions2(true)}
                         onBlur={() => setTimeout(() => setShowSuggestions2(false), 200)}
                         placeholder="הכנס כתובת מלאה"
-                        className={`pr-10 ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : ''}`}
+                        className={`pr-10 rounded-full border-0 transition-all ${darkMode ? 'bg-gray-800 text-white placeholder:text-gray-400 focus:bg-gray-700' : 'bg-gray-100 focus:bg-white focus:shadow-md'}`}
                       />
                       {loadingAddresses2 && (
                         <Loader2 className="absolute left-3 top-3 w-4 h-4 animate-spin text-blue-500" />
@@ -668,7 +678,7 @@ export default function App() {
                         onFocus={() => setShowSuggestionsDest(true)}
                         onBlur={() => setTimeout(() => setShowSuggestionsDest(false), 200)}
                         placeholder="הכנס כתובת היעד"
-                        className={`pr-10 ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : ''}`}
+                        className={`pr-10 rounded-full border-0 transition-all ${darkMode ? 'bg-gray-800 text-white placeholder:text-gray-400 focus:bg-gray-700' : 'bg-gray-100 focus:bg-white focus:shadow-md'}`}
                       />
                       {loadingAddressesDest && (
                         <Loader2 className="absolute left-3 top-3 w-4 h-4 animate-spin text-blue-500" />
@@ -755,10 +765,16 @@ export default function App() {
                   </div>
                 )}
 
+                {/* Hero Button with Gradient */}
                 <Button
                   onClick={handleSearch}
                   disabled={loading || !mapApiLoaded}
-                  className={`w-full ${darkMode ? 'bg-blue-700 hover:bg-blue-800' : 'bg-blue-600 hover:bg-blue-700'} text-white py-6 text-lg font-semibold rounded-xl shadow-lg`}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+                  style={{
+                    boxShadow: darkMode 
+                      ? '0 0 30px rgba(59, 130, 246, 0.3)' 
+                      : '0 0 30px rgba(59, 130, 246, 0.2)'
+                  }}
                 >
                   {loading ? (
                     <>
@@ -840,15 +856,18 @@ export default function App() {
               </div>
 
               <div className="lg:sticky lg:top-4 h-fit">
-                <MapView
-                  mapApiLoaded={mapApiLoaded}
-                  driverOrigin={driverOriginLatLng}
-                  friendOrigin={friendOriginLatLng}
-                  commonDestination={destinationLatLng}
-                  meetingPoints={getCurrentPlan()?.stops || []}
-                  highlightedIndex={hoveredIndex}
-                  transitRoutePolyline={getCurrentPlan()?.passenger_arrivals?.find(p => p.mode === 'transit')?.transit_route_polyline}
-                />
+                {/* Map with rounded corners */}
+                <div className="rounded-xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
+                  <MapView
+                    mapApiLoaded={mapApiLoaded}
+                    driverOrigin={driverOriginLatLng}
+                    friendOrigin={friendOriginLatLng}
+                    commonDestination={destinationLatLng}
+                    meetingPoints={getCurrentPlan()?.stops || []}
+                    highlightedIndex={hoveredIndex}
+                    transitRoutePolyline={getCurrentPlan()?.passenger_arrivals?.find(p => p.mode === 'transit')?.transit_route_polyline}
+                  />
+                </div>
               </div>
             </div>
           </div>

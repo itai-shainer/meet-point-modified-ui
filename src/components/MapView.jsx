@@ -229,6 +229,6 @@ export default function MapView({
   }
 
   return (
-    <div ref={mapRef} className="w-full h-[600px] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700" />
+    <div ref={mapRef} className="w-full h-[600px]" />
   );
 }
