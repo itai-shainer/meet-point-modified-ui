@@ -12,6 +12,6 @@ export const PAGES = {
 }
 
 export const pagesConfig = {
-    mainPage: "Favorites",
+    mainPage: "index",
     Pages: PAGES,
 };
