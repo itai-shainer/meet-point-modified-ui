@@ -1,14 +1,14 @@
 import App from './pages/App';
 import Favorites from './pages/Favorites';
 import RouteHistory from './pages/RouteHistory';
-import Index from './pages/Index';
+import index from './pages/index';
 
 
 export const PAGES = {
     "App": App,
     "Favorites": Favorites,
     "RouteHistory": RouteHistory,
-    "Index": Index,
+    "index": index,
 }
 
 export const pagesConfig = {

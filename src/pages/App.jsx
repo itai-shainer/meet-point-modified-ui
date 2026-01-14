@@ -510,7 +510,7 @@ export default function App() {
               size="icon"
               className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
-              <Link to={createPageUrl('Index')}>
+              <Link to={createPageUrl('index')}>
                 <Home className="w-5 h-5" />
               </Link>
             </Button>

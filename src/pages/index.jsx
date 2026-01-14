@@ -143,7 +143,7 @@ const MeetingAnimation = () => {
   );
 };
 
-export default function Index() {
+export default function index() {
   const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
