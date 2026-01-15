@@ -16,7 +16,18 @@ const getInitialDarkMode = () => {
 // SEO Component
 const SEOHead = () => {
   useEffect(() => {
-    document.title = "Meet Point - The Fair Meeting Spot Calculator";
+    document.title = "MeetPoint | Smart Meeting Spots";
+    
+    // Set favicon
+    const favicon = document.querySelector('link[rel="icon"]');
+    if (favicon) {
+      favicon.setAttribute('href', 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68de300ce9a2edafebb3ebe5/80adfd113_meetpointlogo.png');
+    } else {
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.href = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68de300ce9a2edafebb3ebe5/80adfd113_meetpointlogo.png';
+      document.head.appendChild(link);
+    }
     
     // Add meta description
     const metaDesc = document.querySelector('meta[name="description"]');
