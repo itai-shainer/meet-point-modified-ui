@@ -13,6 +13,10 @@ export default function TermsOfService() {
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('dir', 'ltr');
       if (darkMode) {
