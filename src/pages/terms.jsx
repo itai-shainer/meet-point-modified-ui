@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, FileText, Sun, Moon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const getInitialDarkMode = () => {
@@ -27,12 +27,20 @@ export default function TermsOfService() {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="max-w-4xl mx-auto p-4 md:p-8">
-        <div className="mb-8">
+        <div className="mb-8 flex justify-between items-center">
           <Button asChild variant="outline" className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : ''}>
             <Link to="/">
               <ArrowRight className="w-4 h-4 ml-2" />
               Back to Home
             </Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setDarkMode(!darkMode)}
+            className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
+          >
+            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
         </div>
 

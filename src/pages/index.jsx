@@ -440,8 +440,8 @@ export default function index() {
               </div>
               <div className="flex items-center gap-8 text-sm text-gray-600 dark:text-gray-400">
                 <span>© 2026 Meet Point</span>
-                <a href="#" className="hover:text-blue-600 transition-colors">פרטיות</a>
-                <a href="#" className="hover:text-blue-600 transition-colors">תנאי שימוש</a>
+                <Link to="/privacy" className="hover:text-blue-600 transition-colors">פרטיות</Link>
+                <Link to="/terms" className="hover:text-blue-600 transition-colors">תנאי שימוש</Link>
               </div>
             </div>
           </div>
