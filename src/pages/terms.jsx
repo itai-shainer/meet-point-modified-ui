@@ -14,7 +14,7 @@ export default function TermsOfService() {
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('dir', 'rtl');
+      document.documentElement.setAttribute('dir', 'ltr');
       if (darkMode) {
         document.documentElement.classList.add('dark');
       } else {
@@ -30,7 +30,7 @@ export default function TermsOfService() {
         <div className="mb-8 flex justify-between items-center">
           <Button asChild variant="outline" className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : ''}>
             <Link to="/">
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
           </Button>
