@@ -2,8 +2,8 @@ import App from './pages/App';
 import Favorites from './pages/Favorites';
 import RouteHistory from './pages/RouteHistory';
 import index from './pages/index';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
+import privacy from './pages/privacy';
+import terms from './pages/terms';
 
 
 export const PAGES = {
@@ -11,8 +11,8 @@ export const PAGES = {
     "Favorites": Favorites,
     "RouteHistory": RouteHistory,
     "index": index,
-    "PrivacyPolicy": PrivacyPolicy,
-    "TermsOfService": TermsOfService,
+    "privacy": privacy,
+    "terms": terms,
 }
 
 export const pagesConfig = {
