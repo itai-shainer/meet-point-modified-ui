@@ -277,19 +277,6 @@ export default function index() {
                             {user.email}
                           </DropdownMenuLabel>
                           <DropdownMenuSeparator className="bg-gray-700/50" />
-                          <DropdownMenuItem asChild className="cursor-pointer hover:bg-gray-800/80">
-                            <Link to={createPageUrl('App')} className="flex items-center">
-                              <Map className="w-4 h-4 ml-2" />
-                              המפה שלי
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild className="cursor-pointer hover:bg-gray-800/80">
-                            <Link to={createPageUrl('RouteHistory')} className="flex items-center">
-                              <HistoryIcon className="w-4 h-4 ml-2" />
-                              היסטוריה
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator className="bg-gray-700/50" />
                           <DropdownMenuItem 
                             onClick={handleLogout}
                             className="cursor-pointer hover:bg-gray-800/80 text-red-400"
