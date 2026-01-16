@@ -495,7 +495,7 @@ export default function index() {
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-xl px-12 py-8 rounded-full hover:scale-110 transition-all"
                 >
                   <Link to={createPageUrl('App')}>
-                    <span className="font-bold">התחל עכשיו - חינם</span>
+                    <span className="font-bold">התחל עכשיו</span>
                     <ArrowRight className="w-6 h-6 mr-3" />
                   </Link>
                 </Button>
