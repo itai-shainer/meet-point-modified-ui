@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Zap, Shield, Sparkles, ArrowRight, Check, Sun, Moon } from "lucide-react";
+import { MapPin, Zap, Shield, Sparkles, ArrowRight, Check, Sun, Moon, User, LogOut, History as HistoryIcon, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
+import { base44 } from "@/api/base44Client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const getInitialDarkMode = () => {
   const saved = localStorage.getItem('darkMode');
@@ -157,6 +166,8 @@ const MeetingAnimation = () => {
 export default function index() {
   const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+  const [user, setUser] = useState(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -165,6 +176,27 @@ export default function index() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const isAuth = await base44.auth.isAuthenticated();
+        if (isAuth) {
+          const currentUser = await base44.auth.me();
+          setUser(currentUser);
+        }
+      } catch (error) {
+        console.log("User not authenticated");
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  const handleLogout = async () => {
+    await base44.auth.logout('/');
+  };
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -213,15 +245,63 @@ export default function index() {
                 >
                   {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </Button>
-                <Button 
-                  asChild 
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg rounded-full px-6 hover:scale-105 transition-all"
-                >
-                  <Link to={createPageUrl('App')}>
-                    התחבר
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                  </Link>
-                </Button>
+                
+                {!isCheckingAuth && (
+                  <>
+                    {!user ? (
+                      <Button 
+                        asChild 
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg rounded-full px-6 hover:scale-105 transition-all"
+                      >
+                        <Link to={createPageUrl('App')}>
+                          התחבר
+                          <ArrowRight className="w-4 h-4 mr-2" />
+                        </Link>
+                      </Button>
+                    ) : (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="rounded-full hover:scale-110 transition-transform bg-white/10 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/50"
+                          >
+                            <User className="w-5 h-5 text-white" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent 
+                          align="end" 
+                          className="w-56 bg-gray-900/95 dark:bg-gray-900/95 backdrop-blur-xl border-gray-700/50 text-white"
+                        >
+                          <DropdownMenuLabel className="text-gray-400 text-xs font-normal">
+                            {user.email}
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator className="bg-gray-700/50" />
+                          <DropdownMenuItem asChild className="cursor-pointer hover:bg-gray-800/80">
+                            <Link to={createPageUrl('App')} className="flex items-center">
+                              <Map className="w-4 h-4 ml-2" />
+                              המפה שלי
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild className="cursor-pointer hover:bg-gray-800/80">
+                            <Link to={createPageUrl('RouteHistory')} className="flex items-center">
+                              <HistoryIcon className="w-4 h-4 ml-2" />
+                              היסטוריה
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator className="bg-gray-700/50" />
+                          <DropdownMenuItem 
+                            onClick={handleLogout}
+                            className="cursor-pointer hover:bg-gray-800/80 text-red-400"
+                          >
+                            <LogOut className="w-4 h-4 ml-2" />
+                            התנתק
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>
