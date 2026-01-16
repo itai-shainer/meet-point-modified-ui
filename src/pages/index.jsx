@@ -271,15 +271,23 @@ export default function index() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent 
                           align="end" 
-                          className="w-56 bg-gray-900/95 dark:bg-gray-900/95 backdrop-blur-xl border-gray-700/50 text-white"
+                          className={`w-56 backdrop-blur-xl ${
+                            darkMode 
+                              ? 'bg-gray-900/95 border-gray-700/50 text-white' 
+                              : 'bg-white/95 border-gray-200/50 text-gray-900'
+                          }`}
                         >
-                          <DropdownMenuLabel className="text-gray-400 text-xs font-normal">
+                          <DropdownMenuLabel className={darkMode ? "text-gray-400 text-xs font-normal" : "text-gray-600 text-xs font-normal"}>
                             {user.email}
                           </DropdownMenuLabel>
-                          <DropdownMenuSeparator className="bg-gray-700/50" />
+                          <DropdownMenuSeparator className={darkMode ? "bg-gray-700/50" : "bg-gray-200/50"} />
                           <DropdownMenuItem 
                             onClick={handleLogout}
-                            className="cursor-pointer hover:bg-gray-800/80 text-red-400"
+                            className={`cursor-pointer ${
+                              darkMode 
+                                ? 'hover:bg-gray-800/80 text-red-400' 
+                                : 'hover:bg-gray-100 text-red-600'
+                            }`}
                           >
                             <LogOut className="w-4 h-4 ml-2" />
                             התנתק
