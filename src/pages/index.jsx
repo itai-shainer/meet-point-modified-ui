@@ -264,9 +264,9 @@ export default function index() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="rounded-full hover:scale-110 transition-transform bg-white/10 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/50"
+                            className="rounded-full hover:scale-110 transition-transform bg-gray-100 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-300 dark:border-gray-700/50"
                           >
-                            <User className="w-5 h-5 text-white" />
+                            <User className="w-5 h-5 text-gray-900 dark:text-white" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent 
