@@ -163,8 +163,7 @@ export default function App() {
     
     const service = new window.google.maps.places.AutocompleteService();
     service.getPlacePredictions({
-      input: input,
-      componentRestrictions: { country: 'il' }
+      input: input
     }, (predictions, status) => {
       setLoadingFunction(false);
       if (status === window.google.maps.places.PlacesServiceStatus.OK && predictions) {
