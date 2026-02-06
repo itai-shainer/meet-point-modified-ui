@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Zap, Shield, Sparkles, ArrowRight, Check, Sun, Moon, User, LogOut, History as HistoryIcon, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import FeedbackDialog from "../components/FeedbackDialog";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
 import { base44 } from "@/api/base44Client";
@@ -524,10 +525,19 @@ export default function index() {
                   Meet Point
                 </span>
               </div>
-              <div className="flex items-center gap-8 text-sm text-gray-600 dark:text-gray-400">
-                <span>© 2026 Meet Point</span>
-                <Link to="/privacy" className="hover:text-blue-600 transition-colors">פרטיות</Link>
-                <Link to="/terms" className="hover:text-blue-600 transition-colors">תנאי שימוש</Link>
+              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+                <FeedbackDialog
+                  triggerText="צור קשר"
+                  title="שלח לנו הודעה"
+                  description="יש לך רעיון? שאלה? בעיה? נשמח לשמוע!"
+                  darkMode={darkMode}
+                  variant="ghost"
+                />
+                <div className="flex items-center gap-8 text-sm text-gray-600 dark:text-gray-400">
+                  <span>© 2026 Meet Point</span>
+                  <Link to="/privacy" className="hover:text-blue-600 transition-colors">פרטיות</Link>
+                  <Link to="/terms" className="hover:text-blue-600 transition-colors">תנאי שימוש</Link>
+                </div>
               </div>
             </div>
           </div>

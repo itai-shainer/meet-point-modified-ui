@@ -15,6 +15,7 @@ const createPageUrl = (pageName) => `/${pageName}`;
 import MapView from "../components/MapView";
 import JourneyDetails from "../components/MeetPoint/JourneyDetails";
 import { Card, CardContent } from "@/components/ui/card";
+import FeedbackDialog from "../components/FeedbackDialog";
 
 const isDarkModeByTime = () => {
   const hour = new Date().getHours();
@@ -827,6 +828,18 @@ export default function App() {
                   )}
                   {isFavorite ? 'הסר מהמועדפים' : 'הוסף למועדפים'}
                 </Button>
+                <FeedbackDialog
+                  triggerText="המסלול לא מתאים?"
+                  title="ספר לנו מה לא עבד"
+                  description="נשמח לשפר את השירות ולעזור לך למצוא את המסלול המושלם"
+                  darkMode={darkMode}
+                  variant="outline"
+                  routeInfo={{
+                    driverOrigin: origin1,
+                    passengerOrigin: origin2,
+                    destination: destination
+                  }}
+                />
                 <Button 
                   variant="outline" 
                   onClick={handleReset} 
