@@ -246,7 +246,7 @@ export default function JourneyDetails({ plan, originAddress, passengerAddress, 
                                                         <img 
                                                             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvQ7cabTIUwn2Ob98X9QZHSvVbkg2yOS5pUJhLyK-jmQ3tcL7IwzG9tZexitc8QPk2XhvRJoa-eQUGfjJPIZdaHpYbpbp8LeOqzhKvU2HQpFSNIDMhmsE-wsyGUcqhVZl30eV5LzvAmoU/" 
                                                             alt="Waze" 
-                                                            className="w-7 h-7"
+                                                            className="w-7 h-7 rounded-full"
                                                         />
                                                     </a>
                                                 )}
