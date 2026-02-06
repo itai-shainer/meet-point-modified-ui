@@ -28,6 +28,20 @@ export default function FeedbackDialog({
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
+  useEffect(() => {
+    const fetchUserEmail = async () => {
+      try {
+        const user = await base44.auth.me();
+        if (user?.email) {
+          setEmail(user.email);
+        }
+      } catch (error) {
+        console.log("User not authenticated");
+      }
+    };
+    fetchUserEmail();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
