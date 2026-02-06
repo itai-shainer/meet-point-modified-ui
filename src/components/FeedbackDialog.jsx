@@ -19,7 +19,8 @@ export default function FeedbackDialog({
   description = "ספר לנו מה אפשר לשפר או אם נתקלת בבעיה",
   darkMode = false,
   routeInfo = null,
-  variant = "outline"
+  variant = "outline",
+  hideIcon = false
 }) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -69,8 +70,8 @@ export default function FeedbackDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} className={darkMode ? "border-gray-700" : ""}>
-          <MessageSquare className="w-4 h-4 ml-2" />
+        <Button variant={variant} className={`${darkMode ? "border-gray-700" : ""} ${hideIcon ? "w-full justify-start" : ""}`}>
+          {!hideIcon && <MessageSquare className="w-4 h-4 ml-2" />}
           {triggerText}
         </Button>
       </DialogTrigger>

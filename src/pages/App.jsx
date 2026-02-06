@@ -859,20 +859,19 @@ export default function App() {
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem asChild className={darkMode ? 'hover:bg-gray-700' : ''}>
-                        <div className="w-full">
-                          <FeedbackDialog
-                            triggerText="המסלול לא מתאים?"
-                            title="ספר לנו מה לא עבד"
-                            description="נשמח לשפר את השירות ולעזור לך למצוא את המסלול המושלם"
-                            darkMode={darkMode}
-                            variant="ghost"
-                            routeInfo={{
-                              driverOrigin: origin1,
-                              passengerOrigin: origin2,
-                              destination: destination
-                            }}
-                          />
-                        </div>
+                        <FeedbackDialog
+                          triggerText="המסלול לא מתאים?"
+                          title="ספר לנו מה לא עבד"
+                          description="נשמח לשפר את השירות ולעזור לך למצוא את המסלול המושלם"
+                          darkMode={darkMode}
+                          variant="ghost"
+                          hideIcon={true}
+                          routeInfo={{
+                            driverOrigin: origin1,
+                            passengerOrigin: origin2,
+                            destination: destination
+                          }}
+                        />
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
