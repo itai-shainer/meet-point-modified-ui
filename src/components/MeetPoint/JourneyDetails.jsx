@@ -240,7 +240,7 @@ export default function JourneyDetails({ plan, originAddress, passengerAddress, 
                                                         href={wazeLink} 
                                                         target="_blank" 
                                                         rel="noopener noreferrer"
-                                                        className={`inline-flex items-center justify-center p-1.5 rounded-md transition-colors ${
+                                                        className={`inline-flex items-center justify-center p-2 rounded-md transition-colors ${
                                                             darkMode 
                                                                 ? 'border border-gray-600 hover:bg-gray-600' 
                                                                 : 'border border-gray-300 hover:bg-gray-100'
@@ -250,7 +250,7 @@ export default function JourneyDetails({ plan, originAddress, passengerAddress, 
                                                         <img 
                                                             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvQ7cabTIUwn2Ob98X9QZHSvVbkg2yOS5pUJhLyK-jmQ3tcL7IwzG9tZexitc8QPk2XhvRJoa-eQUGfjJPIZdaHpYbpbp8LeOqzhKvU2HQpFSNIDMhmsE-wsyGUcqhVZl30eV5LzvAmoU/" 
                                                             alt="Waze" 
-                                                            className="w-3.5 h-3.5"
+                                                            className="w-5 h-5"
                                                         />
                                                     </a>
                                                 )}

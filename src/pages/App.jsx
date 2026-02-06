@@ -860,7 +860,7 @@ export default function App() {
                       )}
                       <DropdownMenuItem asChild className={darkMode ? 'hover:bg-gray-700' : ''}>
                         <FeedbackDialog
-                          triggerText="המסלול לא מתאים?"
+                          triggerText="?המסלול לא מתאים"
                           title="ספר לנו מה לא עבד"
                           description="נשמח לשפר את השירות ולעזור לך למצוא את המסלול המושלם"
                           darkMode={darkMode}
