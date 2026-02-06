@@ -49,6 +49,7 @@ export default function FeedbackDialog({
     if (!message.trim()) return;
 
     setSending(true);
+    setError(false);
     try {
       let emailBody = `${message}\n\n---\n`;
       if (email) {
@@ -72,11 +73,11 @@ export default function FeedbackDialog({
         setOpen(false);
         setSent(false);
         setMessage("");
-        setEmail("");
+        setError(false);
       }, 2000);
     } catch (error) {
       console.error("Failed to send feedback:", error);
-      alert("שגיאה בשליחת המשוב. אנא נסה שוב.");
+      setError(true);
     } finally {
       setSending(false);
     }
