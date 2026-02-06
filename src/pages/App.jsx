@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   MapPin, Loader2, Search, ArrowRight, Car, Bus, User, Repeat,
-  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star, Home
+  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star, Home, MoreVertical
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -804,56 +804,122 @@ export default function App() {
                   העדפה: {preference === 'driver' ? 'טוב לנהג' : preference === 'balanced' ? 'מאוזן' : 'טוב לנוסע'}
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2">
-                {alternatives.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-2">
+                {/* Mobile: Compact buttons + More menu */}
+                <div className="flex sm:hidden gap-2 w-full">
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setCurrentPlanIndex(currentPlanIndex === 0 ? 1 : 0)}
-                    className={`flex-1 sm:flex-none text-xs sm:text-sm ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+                    onClick={toggleFavorite}
+                    disabled={togglingFavorite || !currentRouteId}
+                    className={`flex-1 text-xs ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} ${isFavorite ? 'bg-yellow-50 border-yellow-400 dark:bg-yellow-900/50' : ''}`}
                   >
-                    <Repeat className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
-                    <span className="hidden sm:inline">{currentPlanIndex === 0 ? 'הצג תוכנית חלופית' : 'חזור לתוכנית המומלצת'}</span>
-                    <span className="sm:hidden">{currentPlanIndex === 0 ? 'תוכנית חלופית' : 'תוכנית מומלצת'}</span>
+                    {togglingFavorite ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <Star className={`w-4 h-4 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+                    )}
                   </Button>
-                )}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={toggleFavorite}
-                  disabled={togglingFavorite || !currentRouteId}
-                  className={`flex-1 sm:flex-none text-xs sm:text-sm ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} ${isFavorite ? 'bg-yellow-50 border-yellow-400 dark:bg-yellow-900/50' : ''}`}
-                >
-                  {togglingFavorite ? (
-                    <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 animate-spin" />
-                  ) : (
-                    <Star className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    onClick={handleReset} 
+                    className={`flex-1 text-xs ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+                  >
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                    חיפוש חדש
+                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className={`${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+                      >
+                        <MoreVertical className="w-4 h-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : ''}>
+                      <DropdownMenuLabel>פעולות נוספות</DropdownMenuLabel>
+                      <DropdownMenuSeparator className={darkMode ? 'bg-gray-700' : ''} />
+                      {alternatives.length > 0 && (
+                        <DropdownMenuItem 
+                          onClick={() => setCurrentPlanIndex(currentPlanIndex === 0 ? 1 : 0)}
+                          className={darkMode ? 'hover:bg-gray-700' : ''}
+                        >
+                          <Repeat className="w-4 h-4 ml-2" />
+                          {currentPlanIndex === 0 ? 'תוכנית חלופית' : 'תוכנית מומלצת'}
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuItem asChild className={darkMode ? 'hover:bg-gray-700' : ''}>
+                        <div className="w-full">
+                          <FeedbackDialog
+                            triggerText="המסלול לא מתאים?"
+                            title="ספר לנו מה לא עבד"
+                            description="נשמח לשפר את השירות ולעזור לך למצוא את המסלול המושלם"
+                            darkMode={darkMode}
+                            variant="ghost"
+                            routeInfo={{
+                              driverOrigin: origin1,
+                              passengerOrigin: origin2,
+                              destination: destination
+                            }}
+                          />
+                        </div>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+
+                {/* Desktop: All buttons visible */}
+                <div className="hidden sm:flex gap-2 flex-wrap justify-center">
+                  {alternatives.length > 0 && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPlanIndex(currentPlanIndex === 0 ? 1 : 0)}
+                      className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}
+                    >
+                      <Repeat className="w-4 h-4 ml-2" />
+                      {currentPlanIndex === 0 ? 'הצג תוכנית חלופית' : 'חזור לתוכנית המומלצת'}
+                    </Button>
                   )}
-                  <span className="hidden sm:inline">{isFavorite ? 'הסר מהמועדפים' : 'הוסף למועדפים'}</span>
-                  <span className="sm:hidden">{isFavorite ? 'הסר' : 'שמור'}</span>
-                </Button>
-                <FeedbackDialog
-                  triggerText="המסלול לא מתאים?"
-                  title="ספר לנו מה לא עבד"
-                  description="נשמח לשפר את השירות ולעזור לך למצוא את המסלול המושלם"
-                  darkMode={darkMode}
-                  variant="outline"
-                  routeInfo={{
-                    driverOrigin: origin1,
-                    passengerOrigin: origin2,
-                    destination: destination
-                  }}
-                />
-                <Button 
-                  variant="outline"
-                  size="sm"
-                  onClick={handleReset} 
-                  className={`flex-1 sm:flex-none text-xs sm:text-sm ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
-                >
-                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
-                  <span className="hidden sm:inline">חיפוש חדש</span>
-                  <span className="sm:hidden">חדש</span>
-                </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={toggleFavorite}
+                    disabled={togglingFavorite || !currentRouteId}
+                    className={`${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} ${isFavorite ? 'bg-yellow-50 border-yellow-400 dark:bg-yellow-900/50' : ''}`}
+                  >
+                    {togglingFavorite ? (
+                      <Loader2 className="w-4 h-4 ml-2 animate-spin" />
+                    ) : (
+                      <Star className={`w-4 h-4 ml-2 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+                    )}
+                    {isFavorite ? 'הסר מהמועדפים' : 'הוסף למועדפים'}
+                  </Button>
+                  <FeedbackDialog
+                    triggerText="המסלול לא מתאים?"
+                    title="ספר לנו מה לא עבד"
+                    description="נשמח לשפר את השירות ולעזור לך למצוא את המסלול המושלם"
+                    darkMode={darkMode}
+                    variant="outline"
+                    routeInfo={{
+                      driverOrigin: origin1,
+                      passengerOrigin: origin2,
+                      destination: destination
+                    }}
+                  />
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    onClick={handleReset} 
+                    className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}
+                  >
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                    חיפוש חדש
+                  </Button>
+                </div>
               </div>
             </div>
             
