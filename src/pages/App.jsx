@@ -794,39 +794,43 @@ export default function App() {
         )}
 
         {view === 'results' && apiResult && (
-          <div className="space-y-6">
-            <div className={`flex flex-col md:flex-row justify-between items-center gap-4 p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-white/80 shadow-sm'}`}>
-              <div className="text-center md:text-right w-full md:w-auto">
-                <h2 className={`text-xl md:text-2xl font-extrabold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          <div className="space-y-4">
+            <div className={`flex flex-col gap-3 p-3 md:p-4 rounded-xl ${darkMode ? 'bg-gray-800/50' : 'bg-white/80 shadow-sm'}`}>
+              <div className="text-center md:text-right">
+                <h2 className={`text-lg md:text-2xl font-extrabold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                   {currentPlanIndex === 0 ? 'תוכנית מומלצת' : `תוכנית חלופית ${currentPlanIndex}`}
                 </h2>
-                <p className={`text-xs md:text-sm mt-1 font-semibold ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
+                <p className={`text-xs mt-1 font-medium ${darkMode ? 'text-gray-400' : 'text-gray-700'}`}>
                   העדפה: {preference === 'driver' ? 'טוב לנהג' : preference === 'balanced' ? 'מאוזן' : 'טוב לנוסע'}
                 </p>
               </div>
-              <div className="flex flex-wrap justify-center gap-2 w-full md:w-auto">
+              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2">
                 {alternatives.length > 0 && (
                   <Button
                     variant="outline"
+                    size="sm"
                     onClick={() => setCurrentPlanIndex(currentPlanIndex === 0 ? 1 : 0)}
-                    className={`font-semibold ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+                    className={`flex-1 sm:flex-none text-xs sm:text-sm ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
                   >
-                    <Repeat className="w-4 h-4 ml-2" />
-                    {currentPlanIndex === 0 ? 'הצג תוכנית חלופית' : 'חזור לתוכנית המומלצת'}
+                    <Repeat className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
+                    <span className="hidden sm:inline">{currentPlanIndex === 0 ? 'הצג תוכנית חלופית' : 'חזור לתוכנית המומלצת'}</span>
+                    <span className="sm:hidden">{currentPlanIndex === 0 ? 'תוכנית חלופית' : 'תוכנית מומלצת'}</span>
                   </Button>
                 )}
                 <Button
                   variant="outline"
+                  size="sm"
                   onClick={toggleFavorite}
                   disabled={togglingFavorite || !currentRouteId}
-                  className={`font-semibold ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} ${isFavorite ? 'bg-yellow-50 border-yellow-400 dark:bg-yellow-900/50' : ''}`}
+                  className={`flex-1 sm:flex-none text-xs sm:text-sm ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} ${isFavorite ? 'bg-yellow-50 border-yellow-400 dark:bg-yellow-900/50' : ''}`}
                 >
                   {togglingFavorite ? (
-                    <Loader2 className="w-4 h-4 ml-2 animate-spin" />
+                    <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 animate-spin" />
                   ) : (
-                    <Star className={`w-4 h-4 ml-2 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+                    <Star className={`w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
                   )}
-                  {isFavorite ? 'הסר מהמועדפים' : 'הוסף למועדפים'}
+                  <span className="hidden sm:inline">{isFavorite ? 'הסר מהמועדפים' : 'הוסף למועדפים'}</span>
+                  <span className="sm:hidden">{isFavorite ? 'הסר' : 'שמור'}</span>
                 </Button>
                 <FeedbackDialog
                   triggerText="המסלול לא מתאים?"
@@ -841,12 +845,14 @@ export default function App() {
                   }}
                 />
                 <Button 
-                  variant="outline" 
+                  variant="outline"
+                  size="sm"
                   onClick={handleReset} 
-                  className={`font-semibold ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+                  className={`flex-1 sm:flex-none text-xs sm:text-sm ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
                 >
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                  חיפוש חדש
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
+                  <span className="hidden sm:inline">חיפוש חדש</span>
+                  <span className="sm:hidden">חדש</span>
                 </Button>
               </div>
             </div>
