@@ -137,8 +137,8 @@ export default function JourneyDetails({ plan, originAddress, passengerAddress, 
                                 <Bus className={`w-4 h-4 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
                                 <h4 className={`font-medium text-sm ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>מסלול הנוסע (תחב״צ)</h4>
                             </div>
-                            <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200">
-                                סה״כ {Math.round(passengerArrival.eta_min)} דק׳
+                            <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 text-[11px] px-2 py-0.5">
+                               סה״כ {Math.round(passengerArrival.eta_min)} דק׳
                             </Badge>
                         </div>
                         
@@ -226,7 +226,7 @@ export default function JourneyDetails({ plan, originAddress, passengerAddress, 
                                                         {isDirectPickup ? 'איסוף נוסע' : `נקודת מפגש ${index + 1}`}
                                                     </p>
                                                     {placeTypeInfo && (
-                                                        <Badge variant="outline" className={`text-xs flex items-center gap-1 border-0 ${placeTypeInfo.color}`}>
+                                                        <Badge variant="outline" className={`text-[11px] px-1.5 py-0.5 flex items-center gap-1 border-0 ${placeTypeInfo.color}`}>
                                                             {placeTypeInfo.icon}
                                                             {placeTypeInfo.label}
                                                         </Badge>
@@ -240,7 +240,7 @@ export default function JourneyDetails({ plan, originAddress, passengerAddress, 
                                                         href={wazeLink} 
                                                         target="_blank" 
                                                         rel="noopener noreferrer"
-                                                        className={`inline-flex items-center justify-center p-2 rounded-md transition-colors ${
+                                                        className={`inline-flex items-center justify-center p-1.5 rounded-md transition-colors ${
                                                             darkMode 
                                                                 ? 'border border-gray-600 hover:bg-gray-600' 
                                                                 : 'border border-gray-300 hover:bg-gray-100'
@@ -250,7 +250,7 @@ export default function JourneyDetails({ plan, originAddress, passengerAddress, 
                                                         <img 
                                                             src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvQ7cabTIUwn2Ob98X9QZHSvVbkg2yOS5pUJhLyK-jmQ3tcL7IwzG9tZexitc8QPk2XhvRJoa-eQUGfjJPIZdaHpYbpbp8LeOqzhKvU2HQpFSNIDMhmsE-wsyGUcqhVZl30eV5LzvAmoU/" 
                                                             alt="Waze" 
-                                                            className="w-4 h-4"
+                                                            className="w-3.5 h-3.5"
                                                         />
                                                     </a>
                                                 )}
