@@ -27,6 +27,7 @@ export default function FeedbackDialog({
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchUserEmail = async () => {
