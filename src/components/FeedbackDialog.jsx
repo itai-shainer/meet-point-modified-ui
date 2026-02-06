@@ -63,7 +63,7 @@ export default function FeedbackDialog({
       }
 
       await base44.integrations.Core.SendEmail({
-        to: "meetpointhq@gmail.com",
+        to: email || "meetpointhq@gmail.com",
         subject: routeInfo ? "משוב על חישוב מסלול" : "הודעת משוב כללית",
         body: emailBody,
       });
