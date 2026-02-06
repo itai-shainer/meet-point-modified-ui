@@ -100,6 +100,22 @@ export default function FeedbackDialog({
               קיבלנו את המשוב שלך ונחזור אליך בהקדם
             </p>
           </div>
+        ) : error ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center mx-auto mb-4">
+              <MessageSquare className="w-8 h-8 text-red-500" />
+            </div>
+            <h3 className="text-xl font-bold mb-2">שגיאה בשליחה</h3>
+            <p className={`mb-4 ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+              לא הצלחנו לשלוח את ההודעה. אנא נסה שוב.
+            </p>
+            <Button
+              onClick={() => setError(false)}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            >
+              נסה שוב
+            </Button>
+          </div>
         ) : (
           <>
             <DialogHeader>
