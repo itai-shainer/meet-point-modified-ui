@@ -51,10 +51,13 @@ export default function FeedbackDialog({
     setSending(true);
     setError(false);
     try {
-      let emailBody = `${message}\n\n---\n`;
-      if (email) {
+      const user = await base44.auth.me();
+      
+      let emailBody = `משוב מהאפליקציה Meet Point\n\n${message}\n\n---\n`;
+      if (email && email !== user.email) {
         emailBody += `מייל ליצירת קשר: ${email}\n`;
       }
+      emailBody += `נשלח על ידי: ${user.email}\n`;
       if (routeInfo) {
         emailBody += `\nפרטי מסלול:\n`;
         emailBody += `מוצא נהג: ${routeInfo.driverOrigin}\n`;
@@ -63,8 +66,8 @@ export default function FeedbackDialog({
       }
 
       await base44.integrations.Core.SendEmail({
-        to: email || "meetpointhq@gmail.com",
-        subject: routeInfo ? "משוב על חישוב מסלול" : "הודעת משוב כללית",
+        to: user.email,
+        subject: routeInfo ? "משוב על חישוב מסלול - Meet Point" : "הודעת משוב כללית - Meet Point",
         body: emailBody,
       });
 
