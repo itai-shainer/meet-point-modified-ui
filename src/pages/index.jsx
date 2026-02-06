@@ -352,21 +352,7 @@ export default function index() {
                   </Button>
                 </motion.div>
 
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.8 }}
-                  className="flex items-center gap-8 mt-10 justify-center lg:justify-start text-sm text-gray-600 dark:text-gray-400"
-                >
-                  <div className="flex items-center gap-2">
-                    <Check className="w-5 h-5 text-green-500" />
-                    <span>ללא הרשמה</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="w-5 h-5 text-green-500" />
-                    <span>תמיד חינם</span>
-                  </div>
-                </motion.div>
+
               </motion.div>
 
               {/* Animated Visual */}
