@@ -433,35 +433,35 @@ export default function App() {
   
   const ResultHeader = ({ plan }) => (
     <Card className={`mb-4 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50'}`}>
-        <CardContent className="p-3 md:p-4 grid grid-cols-2 md:flex md:flex-wrap items-center justify-around gap-4 text-center">
-            <div className="flex flex-col items-center">
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                    <Clock className="w-5 h-5"/>
-                    <span className="font-semibold">זמן נסיעה עם עצירות</span>
+        <CardContent className="p-3 md:p-4 flex flex-col gap-3 md:flex-row md:flex-wrap items-center justify-around text-center">
+            <div className="flex flex-col items-center min-w-0">
+                <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-300">
+                    <Clock className="w-4 h-4 md:w-5 md:h-5"/>
+                    <span className="font-semibold whitespace-nowrap">זמן נסיעה עם עצירות</span>
                 </div>
-                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                <span className="text-xl md:text-2xl font-bold text-blue-600 dark:text-blue-400">
                   {formatDuration(plan.driver_total_eta_min)}
                 </span>
             </div>
 
             {plan.direct_route_eta_min && (
-                <div className="flex flex-col items-center">
-                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                        <ArrowRight className="w-5 h-5"/>
-                        <span className="font-semibold">זמן נסיעה ישיר</span>
+                <div className="flex flex-col items-center min-w-0">
+                    <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-300">
+                        <ArrowRight className="w-4 h-4 md:w-5 md:h-5"/>
+                        <span className="font-semibold whitespace-nowrap">זמן נסיעה ישיר</span>
                     </div>
-                    <span className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                    <span className="text-xl md:text-2xl font-bold text-gray-800 dark:text-gray-200">
                       {formatDuration(plan.direct_route_eta_min)}
                     </span>
                 </div>
             )}
 
-            <div className="flex flex-col items-center">
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                    <Award className="w-5 h-5"/>
-                    <span className="font-semibold">סוג תוכנית</span>
+            <div className="flex flex-col items-center min-w-0">
+                <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-600 dark:text-gray-300">
+                    <Award className="w-4 h-4 md:w-5 md:h-5"/>
+                    <span className="font-semibold whitespace-nowrap">סוג תוכנית</span>
                 </div>
-                <span className="text-lg font-bold text-gray-800 dark:text-gray-200">
+                <span className="text-base md:text-lg font-bold text-gray-800 dark:text-gray-200">
                           {plan.type === 'shared_meeting' ? 'מפגש משותף' : 
                            plan.type === 'direct_pickup' ? 'איסוף ישיר' :
                            plan.type === 'direct_pickups' ? 'איסוף ישיר' : 
@@ -815,19 +815,6 @@ export default function App() {
               <div className="flex flex-wrap justify-center gap-2">
                 {/* Mobile: Compact buttons + More menu */}
                 <div className="flex sm:hidden gap-2 w-full">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={toggleFavorite}
-                    disabled={togglingFavorite || !currentRouteId}
-                    className={`flex-1 text-xs ${darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'} ${isFavorite ? 'bg-yellow-50 border-yellow-400 dark:bg-yellow-900/50' : ''}`}
-                  >
-                    {togglingFavorite ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <Star className={`w-4 h-4 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
-                    )}
-                  </Button>
                   <Button 
                     variant="outline"
                     size="sm"
@@ -850,6 +837,18 @@ export default function App() {
                     <DropdownMenuContent align="end" className={darkMode ? 'bg-gray-800 border-gray-700 text-white' : ''}>
                       <DropdownMenuLabel>פעולות נוספות</DropdownMenuLabel>
                       <DropdownMenuSeparator className={darkMode ? 'bg-gray-700' : ''} />
+                      <DropdownMenuItem 
+                        onClick={toggleFavorite}
+                        disabled={togglingFavorite || !currentRouteId}
+                        className={darkMode ? 'hover:bg-gray-700' : ''}
+                      >
+                        {togglingFavorite ? (
+                          <Loader2 className="w-4 h-4 ml-2 animate-spin" />
+                        ) : (
+                          <Star className={`w-4 h-4 ml-2 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+                        )}
+                        {isFavorite ? 'הסר מהמועדפים' : 'הוסף למועדפים'}
+                      </DropdownMenuItem>
                       {alternatives.length > 0 && (
                         <DropdownMenuItem 
                           onClick={() => setCurrentPlanIndex(currentPlanIndex === 0 ? 1 : 0)}
