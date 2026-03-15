@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Zap, Shield, Sparkles, ArrowRight, Check, Sun, Moon, User, LogOut, History as HistoryIcon, Map } from "lucide-react";
+import MeetPointLogo from "../components/MeetPointLogo";
 import { Button } from "@/components/ui/button";
 import FeedbackDialog from "../components/FeedbackDialog";
 import { createPageUrl } from "@/utils";

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 const createPageUrl = (pageName) => `/${pageName}`;
 
 import MapView from "../components/MapView";
+import MeetPointLogo from "../components/MeetPointLogo";
 import JourneyDetails from "../components/MeetPoint/JourneyDetails";
 import { Card, CardContent } from "@/components/ui/card";
 import FeedbackDialog from "../components/FeedbackDialog";
