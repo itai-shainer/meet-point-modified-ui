@@ -231,7 +231,7 @@ export default function index() {
           <div className="max-w-7xl mx-auto px-6 md:px-12 py-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img src="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/4340ad282_WhatsAppImage2026-03-14at001506.jpg" alt="Meet Point Logo" className="w-12 h-12 rounded-xl object-cover shadow-lg" />
+                <MeetPointLogo size="md" />
                 <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Meet Point
                 </span>

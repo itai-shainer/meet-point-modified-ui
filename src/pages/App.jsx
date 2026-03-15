@@ -499,7 +499,7 @@ export default function App() {
         {/* Glass navbar */}
         <div className={`flex flex-col md:flex-row justify-between items-center gap-4 mb-8 p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
           <div className="flex items-center gap-3 w-full md:w-auto justify-center md:justify-start">
-            <img src="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/4340ad282_WhatsAppImage2026-03-14at001506.jpg" alt="Meet Point Logo" className="w-14 h-14 rounded-xl object-cover shadow-lg" />
+            <MeetPointLogo size="md" />
             <div className="text-center md:text-right">
               <h1 className={`text-2xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 Meet Point
