@@ -5,9 +5,9 @@ const LIGHT_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3e
 
 export default function MeetPointLogo({ size = "md", darkMode = false }) {
   const dimensions = {
-    sm: "w-12 h-12",
-    md: "w-16 h-16",
-    lg: "w-20 h-20",
+    sm: "w-16 h-16",
+    md: "w-20 h-20",
+    lg: "w-24 h-24",
   };
 
   return (
