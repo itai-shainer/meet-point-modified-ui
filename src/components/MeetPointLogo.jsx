@@ -15,6 +15,7 @@ export default function MeetPointLogo({ size = "md", darkMode = false }) {
       src={darkMode ? DARK_LOGO : LIGHT_LOGO}
       alt="Meet Point Logo"
       className={`${dimensions[size] || dimensions.md} object-contain flex-shrink-0 -ml-2`}
+      style={{ mixBlendMode: darkMode ? 'lighten' : 'multiply' }}
     />
   );
 }
