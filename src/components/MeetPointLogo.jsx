@@ -12,9 +12,9 @@ export default function MeetPointLogo({ size = "md", darkMode = false }) {
 
   return (
     <img
-      src={darkMode ? DARK_LOGO : LIGHT_LOGO}
+      src={LIGHT_LOGO}
       alt="Meet Point Logo"
-      className={`${dimensions[size] || dimensions.md} object-contain flex-shrink-0 -ml-2 ${darkMode ? 'mix-blend-screen' : ''}`}
+      className={`${dimensions[size] || dimensions.md} object-contain flex-shrink-0 -ml-2`}
       style={darkMode ? { mixBlendMode: 'screen' } : {}}
     />
   );
