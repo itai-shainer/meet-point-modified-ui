@@ -1,7 +1,7 @@
 import React from "react";
 
-const DARK_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/da8cda699_AdobeExpress-file.png";
-const LIGHT_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/da8cda699_AdobeExpress-file.png";
+const DARK_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/f9f5b81e8_generated_image.png";
+const LIGHT_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/f9f5b81e8_generated_image.png";
 
 export default function MeetPointLogo({ size = "md", darkMode = false }) {
   const dimensions = {
