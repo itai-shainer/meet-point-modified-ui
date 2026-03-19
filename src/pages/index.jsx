@@ -303,9 +303,9 @@ export default function index() {
         </motion.nav>
 
         {/* Hero Section */}
-        <section className="pt-40 pb-20 px-6 md:px-12">
+        <section className="pt-28 md:pt-40 pb-12 md:pb-20 px-4 md:px-12">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -316,7 +316,7 @@ export default function index() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
-                  className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight"
+                  className="text-4xl md:text-7xl lg:text-8xl font-extrabold mb-4 md:mb-6 leading-tight"
                   style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 800 }}
                 >
                   <span className="text-gray-900 dark:text-white">מצא את</span><br />
@@ -329,7 +329,7 @@ export default function index() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
-                  className="text-xl md:text-2xl mb-10 text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+                  className="text-base md:text-2xl mb-8 md:mb-10 text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto lg:mx-0"
                 >
                   מחשבון נקודת המפגש החכם שחוסך לך ולחבריך זמן ונסיעה. הוגן לכולם, בכל פעם.
                 </motion.p>
@@ -342,26 +342,24 @@ export default function index() {
                   <Button 
                     asChild 
                     size="lg"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-xl px-12 py-8 rounded-full hover:scale-110 transition-all group"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-lg md:text-xl px-8 md:px-12 py-6 md:py-8 rounded-full hover:scale-105 transition-all group w-full sm:w-auto"
                   >
                     <Link to={createPageUrl('App')}>
                       <span className="font-bold">מצא נקודת מפגש</span>
-                      <ArrowRight className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </Button>
                 </motion.div>
-
-
               </motion.div>
 
-              {/* Animated Visual */}
+              {/* Animated Visual - hidden on small screens */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4, duration: 1 }}
-                className="relative"
+                className="relative hidden md:block"
               >
-                <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/20 dark:border-gray-800/20">
+                <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-6 md:p-10 shadow-2xl border border-white/20 dark:border-gray-800/20">
                   <MeetingAnimation />
                 </div>
                 
