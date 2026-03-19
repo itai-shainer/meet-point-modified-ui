@@ -464,7 +464,7 @@ export default function index() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 px-6 md:px-12">
+        <section className="py-12 md:py-24 px-4 md:px-12">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -472,23 +472,23 @@ export default function index() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-16 text-center shadow-2xl border border-white/20 dark:border-gray-800/20 relative overflow-hidden">
+            <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl md:rounded-3xl p-8 md:p-16 text-center shadow-2xl border border-white/20 dark:border-gray-800/20 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
               <div className="relative z-10">
-                <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900 dark:text-white">
+                <h2 className="text-2xl md:text-5xl font-extrabold mb-4 md:mb-6 text-gray-900 dark:text-white">
                   מוכן למצוא את נקודת המפגש המושלמת?
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-400 mb-10">
+                <p className="text-base md:text-xl text-gray-600 dark:text-gray-400 mb-8 md:mb-10">
                   הצטרף לאלפים שכבר חסכו זמן ודלק. התחל תוך שניות.
                 </p>
                 <Button 
                   asChild 
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-xl px-12 py-8 rounded-full hover:scale-110 transition-all"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl text-lg md:text-xl px-8 md:px-12 py-6 md:py-8 rounded-full hover:scale-105 transition-all w-full sm:w-auto"
                 >
                   <Link to={createPageUrl('App')}>
                     <span className="font-bold">התחל עכשיו</span>
-                    <ArrowRight className="w-6 h-6 mr-3" />
+                    <ArrowRight className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                   </Link>
                 </Button>
               </div>
