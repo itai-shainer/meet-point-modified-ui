@@ -372,40 +372,40 @@ export default function index() {
         </section>
 
         {/* Bento Grid Features */}
-        <section className="py-24 px-6 md:px-12">
+        <section className="py-14 md:py-24 px-4 md:px-12">
           <div className="max-w-7xl mx-auto">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="text-center mb-16"
+              className="text-center mb-10 md:mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900 dark:text-white">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-3 md:mb-4 text-gray-900 dark:text-white">
                 למה Meet Point?
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400">
+              <p className="text-base md:text-xl text-gray-600 dark:text-gray-400">
                 אלגוריתמים חכמים. תוצאות הוגנות. אפס טרחה.
               </p>
             </motion.div>
 
-            {/* Bento Grid Layout */}
-            <div className="grid md:grid-cols-3 gap-6">
+            {/* Feature Cards - Stack on mobile */}
+            <div className="grid md:grid-cols-3 gap-4 md:gap-6">
               {/* Large Feature 1 */}
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1, duration: 0.6 }}
-                className="md:col-span-2 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 border border-white/20 dark:border-gray-800/20 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+                className="md:col-span-2 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/20 dark:border-gray-800/20 shadow-xl"
               >
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <Zap className="w-8 h-8 text-white" />
+                <div className="flex items-start gap-4 md:gap-6">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl md:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <Zap className="w-6 h-6 md:w-8 md:h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">אינטגרציה עם תחבורה ציבורית</h3>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <h3 className="text-lg md:text-2xl font-bold mb-2 md:mb-3 text-gray-900 dark:text-white">אינטגרציה עם תחבורה ציבורית</h3>
+                    <p className="text-sm md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
                       תמיכה מלאה באוטובוסים, רכבות ונסיעות משולבות. אנחנו מחשבים את נקודת המפגש האופטימלית תוך התחשבות בכל אפשרויות התחבורה.
                     </p>
                   </div>
@@ -418,13 +418,13 @@ export default function index() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 border border-white/20 dark:border-gray-800/20 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+                className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/20 dark:border-gray-800/20 shadow-xl"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <Shield className="w-7 h-7 text-white" />
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-lg">
+                  <Shield className="w-6 h-6 md:w-7 md:h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">אלגוריתמי הוגנות</h3>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-gray-900 dark:text-white">אלגוריתמי הוגנות</h3>
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                   זמני נסיעה מאוזנים לכל המעורבים
                 </p>
               </motion.div>
@@ -435,13 +435,13 @@ export default function index() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl p-10 border border-white/20 dark:border-gray-800/20 shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+                className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-10 border border-white/20 dark:border-gray-800/20 shadow-xl"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <Sparkles className="w-7 h-7 text-white" />
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-lg">
+                  <Sparkles className="w-6 h-6 md:w-7 md:h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">מיקומים בטוחים</h3>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-gray-900 dark:text-white">מיקומים בטוחים</h3>
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                   עדיפות למקומות מפגש ציבוריים ובטוחים
                 </p>
               </motion.div>
@@ -452,10 +452,10 @@ export default function index() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="md:col-span-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all hover:scale-105 text-white"
+                className="md:col-span-2 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-xl text-white"
               >
-                <h3 className="text-3xl font-bold mb-4">נתוני תנועה ותחבורה בזמן אמת</h3>
-                <p className="text-xl text-blue-100 leading-relaxed">
+                <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4">נתוני תנועה ותחבורה בזמן אמת</h3>
+                <p className="text-sm md:text-xl text-blue-100 leading-relaxed">
                   עדכונים חיים מבטיחים שתמיד תקבל את המסלול המהיר והיעיל ביותר - לא משנה באיזו שעה ביום.
                 </p>
               </motion.div>
