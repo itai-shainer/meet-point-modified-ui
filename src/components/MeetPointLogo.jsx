@@ -10,12 +10,25 @@ export default function MeetPointLogo({ size = "md", darkMode = false }) {
     lg: "w-24 h-24",
   };
 
+  if (darkMode) {
+    return (
+      <div className={`${dimensions[size] || dimensions.md} flex items-center justify-center flex-shrink-0`}>
+        <img
+          src={DARK_LOGO}
+          alt="Meet Point Logo"
+          className="w-full h-full object-contain"
+          style={{ mixBlendMode: 'screen' }}
+        />
+      </div>
+    );
+  }
+
   return (
     <img
-      src={darkMode ? DARK_LOGO : LIGHT_LOGO}
+      src={LIGHT_LOGO}
       alt="Meet Point Logo"
       className={`${dimensions[size] || dimensions.md} object-contain flex-shrink-0 -ml-2`}
-      style={{ mixBlendMode: darkMode ? 'screen' : 'multiply' }}
+      style={{ mixBlendMode: 'multiply' }}
     />
   );
 }
