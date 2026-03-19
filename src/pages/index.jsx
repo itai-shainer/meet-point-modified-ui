@@ -228,11 +228,11 @@ export default function index() {
           animate={{ y: 0 }}
           className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl shadow-lg' : 'bg-transparent'}`}
         >
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-5">
+          <div className="max-w-7xl mx-auto px-4 md:px-12 py-3 md:py-5">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <MeetPointLogo size="md" darkMode={darkMode} />
-                <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <div className="flex items-center gap-2">
+                <MeetPointLogo size="sm" darkMode={darkMode} />
+                <span className="text-xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Meet Point
                 </span>
               </div>
