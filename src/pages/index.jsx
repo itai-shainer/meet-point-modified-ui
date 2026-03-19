@@ -497,16 +497,16 @@ export default function index() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 px-6 md:px-12 border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
+        <footer className="py-8 md:py-12 px-4 md:px-12 border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <div className="flex items-center gap-3">
+            <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-6">
+              <div className="flex items-center gap-2">
                 <MeetPointLogo size="sm" darkMode={darkMode} />
-                <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="text-xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Meet Point
                 </span>
               </div>
-              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+              <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-sm text-gray-600 dark:text-gray-400">
                 <FeedbackDialog
                   triggerText="צור קשר"
                   title="שלח לנו הודעה"
@@ -514,11 +514,9 @@ export default function index() {
                   darkMode={darkMode}
                   variant="ghost"
                 />
-                <div className="flex items-center gap-8 text-sm text-gray-600 dark:text-gray-400">
-                  <span>© 2026 Meet Point</span>
-                  <Link to="/privacy" className="hover:text-blue-600 transition-colors">פרטיות</Link>
-                  <Link to="/terms" className="hover:text-blue-600 transition-colors">תנאי שימוש</Link>
-                </div>
+                <span>© 2026 Meet Point</span>
+                <Link to="/privacy" className="hover:text-blue-600 transition-colors">פרטיות</Link>
+                <Link to="/terms" className="hover:text-blue-600 transition-colors">תנאי שימוש</Link>
               </div>
             </div>
           </div>
