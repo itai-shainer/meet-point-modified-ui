@@ -499,7 +499,7 @@ export default function App() {
         {/* Glass navbar */}
         <div className={`flex flex-row justify-between items-center gap-2 mb-6 p-3 md:p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
           <div className="flex flex-col items-center gap-0.5 sm:flex-row sm:items-center sm:gap-2">
-            <MeetPointLogo size="sm" darkMode={darkMode} />
+            <MeetPointLogo size="sm" darkMode={darkMode} customDarkSrc="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/78d40b603_AdobeExpress-file.png" />
             <h1 className={`text-xs sm:text-2xl md:text-3xl font-bold text-center sm:text-right ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               Meet Point
             </h1>
