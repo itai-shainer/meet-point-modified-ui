@@ -231,7 +231,7 @@ export default function index() {
           <div className="max-w-7xl mx-auto px-4 md:px-12 py-3 md:py-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <img src="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/da8cda699_AdobeExpress-file.png" alt="Meet Point Logo" className="w-16 h-16 object-contain flex-shrink-0 -ml-2" style={{ mixBlendMode: 'multiply' }} />
+                <MeetPointLogo size="sm" darkMode={darkMode} />
                 <span className="text-xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Meet Point
                 </span>
@@ -501,7 +501,7 @@ export default function index() {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-6">
               <div className="flex items-center gap-2">
-                <img src="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/da8cda699_AdobeExpress-file.png" alt="Meet Point Logo" className="w-16 h-16 object-contain flex-shrink-0 -ml-2" style={{ mixBlendMode: 'multiply' }} />
+                <MeetPointLogo size="sm" darkMode={darkMode} />
                 <span className="text-xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Meet Point
                 </span>

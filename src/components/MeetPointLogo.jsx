@@ -1,7 +1,7 @@
 import React from "react";
 
-const DARK_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/f9f5b81e8_generated_image.png";
-const LIGHT_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/f9f5b81e8_generated_image.png";
+const DARK_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/b2c5d16ae_logo_transparent.png";
+const LIGHT_LOGO = "https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/3bffa3adf_Screenshot2026-03-16at214122.png";
 
 export default function MeetPointLogo({ size = "md", darkMode = false }) {
   const dimensions = {
@@ -15,7 +15,7 @@ export default function MeetPointLogo({ size = "md", darkMode = false }) {
       src={darkMode ? DARK_LOGO : LIGHT_LOGO}
       alt="Meet Point Logo"
       className={`${dimensions[size] || dimensions.md} object-contain flex-shrink-0 -ml-2`}
-      style={{}}
+      style={{ mixBlendMode: darkMode ? 'normal' : 'multiply' }}
     />
   );
 }
