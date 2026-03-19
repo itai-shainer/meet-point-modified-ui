@@ -497,20 +497,20 @@ export default function App() {
       />
       <div className="max-w-7xl mx-auto p-4 md:p-8 relative z-10">
         {/* Glass navbar */}
-        <div className={`flex flex-col md:flex-row justify-between items-center gap-4 mb-8 p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
-          <div className="flex items-center gap-3 w-full md:w-auto justify-center md:justify-start">
-            <MeetPointLogo size="md" darkMode={darkMode} />
-            <div className="text-center md:text-right">
-              <h1 className={`text-2xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className={`flex flex-row justify-between items-center gap-2 mb-6 p-3 md:p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
+          <div className="flex items-center gap-2 min-w-0">
+            <MeetPointLogo size="sm" darkMode={darkMode} />
+            <div className="text-right min-w-0">
+              <h1 className={`text-lg md:text-3xl font-bold truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 Meet Point
               </h1>
-              <p className={`text-xs md:text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`text-xs hidden sm:block ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 מצא את נקודת המפגש האופטימלית
               </p>
             </div>
           </div>
 
-          <div className="flex gap-2 w-full md:w-auto justify-center md:justify-end">
+          <div className="flex gap-1.5 md:gap-2 flex-shrink-0">
             <Button
               asChild
               variant="outline"
