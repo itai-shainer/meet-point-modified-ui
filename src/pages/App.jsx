@@ -134,6 +134,12 @@ export default function App() {
   const [alternatives, setAlternatives] = useState([]);
   const [currentPlanIndex, setCurrentPlanIndex] = useState(0);
 
+  // Same-city detection
+  const sameCityWarning = useMemo(() => {
+    if (!origin1 || !origin2) return false;
+    return isSameCity(origin1, origin2);
+  }, [origin1, origin2]);
+
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('dir', 'rtl');
