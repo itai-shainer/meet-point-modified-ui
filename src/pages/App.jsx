@@ -43,6 +43,23 @@ const getInitialDarkMode = () => {
   return isDarkModeBySystem() || isDarkModeByTime();
 };
 
+// Extract city name from an address string (last meaningful part before country)
+const extractCity = (address) => {
+  if (!address) return null;
+  const parts = address.split(',').map(p => p.trim());
+  // Typically: "Street, City, Country" or "Street, City, Region, Country"
+  // Return the second part (index 1) as the city, if it exists
+  if (parts.length >= 2) return parts[1].toLowerCase();
+  return parts[0].toLowerCase();
+};
+
+const isSameCity = (addr1, addr2) => {
+  if (!addr1 || !addr2) return false;
+  const city1 = extractCity(addr1);
+  const city2 = extractCity(addr2);
+  return city1 && city2 && city1 === city2;
+};
+
 const formatDuration = (minutes) => {
   if (minutes < 60) {
     return `${minutes} דקות`;
