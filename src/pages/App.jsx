@@ -573,8 +573,8 @@ export default function App() {
         {view === 'search' && (
           <div className="space-y-6">
             {/* Floating Glass Panel */}
-            <div className={`rounded-2xl shadow-2xl p-6 md:p-8 backdrop-blur-md border ${darkMode ? 'bg-gray-900/90 border-white/20' : 'bg-white/90 border-white/20'}`}>
-              <div className="space-y-6">
+            <div className={`rounded-2xl shadow-2xl p-4 md:p-8 backdrop-blur-md border ${darkMode ? 'bg-gray-900/90 border-white/20' : 'bg-white/90 border-white/20'}`}>
+              <div className="space-y-4 md:space-y-6">
                 <div className="space-y-4">
                   <div className="relative">
                     <Label className={`block mb-2 font-semibold ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
