@@ -731,6 +731,46 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* Same-city warning */}
+                {sameCityWarning && (
+                  <div className={`flex items-start gap-2.5 px-4 py-3 rounded-xl border text-sm ${darkMode ? 'bg-amber-900/20 border-amber-700/40 text-amber-300' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
+                    <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0 opacity-80" />
+                    <div>
+                      <span className="font-semibold">שים לב: </span>
+                      נקודות המוצא נמצאות באותה עיר. ייתכן שדיוק חישוב נקודת המפגש יהיה מוגבל עבור מסלולים עירוניים.
+                    </div>
+                  </div>
+                )}
+
+                {/* Route type selector */}
+                <div className="space-y-2">
+                  <Label className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    סוג מסלול
+                  </Label>
+                  <div className={`flex rounded-xl border overflow-hidden ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+                    {/* Intra-city option — active */}
+                    <div className={`flex-1 flex items-center gap-2 px-4 py-3 cursor-default ${darkMode ? 'bg-blue-600/20 border-l border-gray-700' : 'bg-blue-50 border-l border-gray-200'}`}>
+                      <Building2 className={`w-4 h-4 flex-shrink-0 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                      <div>
+                        <div className={`text-sm font-semibold ${darkMode ? 'text-blue-300' : 'text-blue-700'}`}>עירוני</div>
+                        <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>זמין כעת</div>
+                      </div>
+                      <div className={`mr-auto w-2 h-2 rounded-full ${darkMode ? 'bg-blue-400' : 'bg-blue-500'}`} />
+                    </div>
+                    {/* Inter-city option — coming soon */}
+                    <div className={`flex-1 flex items-center gap-2 px-4 py-3 opacity-60 cursor-not-allowed ${darkMode ? 'bg-gray-800/50' : 'bg-gray-50'}`}>
+                      <Route className={`w-4 h-4 flex-shrink-0 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
+                      <div>
+                        <div className={`text-sm font-semibold ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>בין-עירוני</div>
+                        <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>בקרוב</div>
+                      </div>
+                      <span className={`mr-auto text-xs font-bold px-2 py-0.5 rounded-full ${darkMode ? 'bg-purple-900/60 text-purple-300' : 'bg-purple-100 text-purple-600'}`}>
+                        Soon
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <Label className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     העדפת חישוב
