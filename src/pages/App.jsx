@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   MapPin, Loader2, Search, ArrowRight, Car, Bus, User, Repeat,
-  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star, Home, MoreVertical
+  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star, Home, MoreVertical, AlertTriangle, Building2, Route
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
