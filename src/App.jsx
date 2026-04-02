@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import { ThemeProvider } from '@/lib/ThemeProvider';
+import MobileBottomNav from '@/components/MobileBottomNav';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -71,12 +73,15 @@ function App() {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
-        <Router>
-          <NavigationTracker />
-          <AuthenticatedApp />
-        </Router>
-        <Toaster />
-        <VisualEditAgent />
+        <ThemeProvider>
+          <Router>
+            <NavigationTracker />
+            <AuthenticatedApp />
+            <MobileBottomNav />
+          </Router>
+          <Toaster />
+          <VisualEditAgent />
+        </ThemeProvider>
       </QueryClientProvider>
     </AuthProvider>
   )

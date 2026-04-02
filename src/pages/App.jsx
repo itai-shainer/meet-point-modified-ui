@@ -17,6 +17,7 @@ import MeetPointLogo from "../components/MeetPointLogo";
 import JourneyDetails from "../components/MeetPoint/JourneyDetails";
 import { Card, CardContent } from "@/components/ui/card";
 import FeedbackDialog from "../components/FeedbackDialog";
+import { useTheme } from "@/lib/ThemeProvider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,23 +26,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-const isDarkModeByTime = () => {
-  const hour = new Date().getHours();
-  return hour < 6 || hour >= 18;
-};
-
-const isDarkModeBySystem = () => {
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-};
-
-const getInitialDarkMode = () => {
-  const saved = localStorage.getItem('darkMode');
-  if (saved !== null) {
-    return saved === 'true';
-  }
-  return isDarkModeBySystem() || isDarkModeByTime();
-};
 
 // Extract city name from an address string (last meaningful part before country)
 const extractCity = (address) => {
@@ -75,9 +59,9 @@ const formatDuration = (minutes) => {
 };
 
 export default function App() {
+  const { darkMode, setDarkMode } = useTheme();
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [view, setView] = useState('search');
-  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
   // Auth Guard - Redirect to login if not authenticated
   useEffect(() => {
@@ -140,17 +124,7 @@ export default function App() {
     return isSameCity(origin1, origin2);
   }, [origin1, origin2]);
 
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('dir', 'rtl');
-      if (darkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      localStorage.setItem('darkMode', darkMode.toString());
-    }
-  }, [darkMode]);
+
 
   useEffect(() => {
     if (mapApiLoadedRef.current) return;
@@ -286,18 +260,30 @@ export default function App() {
 
   const toggleFavorite = async () => {
     if (!currentRouteId) return;
-    
+    // Optimistic update
+    const newFavoriteStatus = !isFavorite;
+    setIsFavorite(newFavoriteStatus);
     setTogglingFavorite(true);
     try {
-      const newFavoriteStatus = !isFavorite;
       await base44.entities.RouteHistory.update(currentRouteId, {
         is_favorite: newFavoriteStatus
       });
-      setIsFavorite(newFavoriteStatus);
     } catch (error) {
+      // Revert on failure
+      setIsFavorite(!newFavoriteStatus);
       console.error("Failed to toggle favorite:", error);
     } finally {
       setTogglingFavorite(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!window.confirm('האם אתה בטוח שברצונך למחוק את החשבון? פעולה זו אינה הפיכה.')) return;
+    try {
+      await base44.auth.deleteAccount();
+    } catch (error) {
+      console.error("Failed to delete account:", error);
+      alert('אירעה שגיאה במחיקת החשבון. אנא נסה שוב.');
     }
   };
 
@@ -518,7 +504,7 @@ export default function App() {
                : 'radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.2) 0px, transparent 50%), radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.2) 0px, transparent 50%), radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 0.2) 0px, transparent 50%), radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 0.2) 0px, transparent 50%), radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 0.2) 0px, transparent 50%), radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.2) 0px, transparent 50%), radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.2) 0px, transparent 50%)'
            }}
       />
-      <div className="max-w-7xl mx-auto p-3 md:p-8 relative z-10 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto p-3 md:p-8 pb-20 md:pb-8 relative z-10 overflow-x-hidden">
         {/* Glass navbar */}
         <div className={`flex flex-row justify-between items-center gap-2 mb-6 p-3 md:p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
           <div className="flex flex-col items-center gap-0.5 sm:flex-row sm:items-center sm:gap-2">
@@ -933,6 +919,13 @@ export default function App() {
                             destination: destination
                           }}
                         />
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator className={darkMode ? 'bg-gray-700' : ''} />
+                      <DropdownMenuItem
+                        onClick={handleDeleteAccount}
+                        className={`text-red-500 ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-red-50'}`}
+                      >
+                        מחק חשבון
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

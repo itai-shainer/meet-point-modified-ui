@@ -154,5 +154,19 @@ button:focus-visible {
   }
   body {
     @apply bg-background text-foreground;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
   }
+  button, a, [role="button"] {
+    @apply select-none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Safe area support */
+:root {
+  --safe-area-top: env(safe-area-inset-top);
+  --safe-area-bottom: env(safe-area-inset-bottom);
+  --safe-area-left: env(safe-area-inset-left);
+  --safe-area-right: env(safe-area-inset-right);
 }

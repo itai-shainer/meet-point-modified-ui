@@ -7,6 +7,7 @@ import FeedbackDialog from "../components/FeedbackDialog";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
 import { base44 } from "@/api/base44Client";
+import { useTheme } from "@/lib/ThemeProvider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,14 +16,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-const getInitialDarkMode = () => {
-  const saved = localStorage.getItem('darkMode');
-  if (saved !== null) {
-    return saved === 'true';
-  }
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-};
 
 // SEO Component
 const SEOHead = () => {
@@ -165,9 +158,9 @@ const MeetingAnimation = () => {
   );
 };
 
-export default function index() {
+export default function Index() {
   const [scrolled, setScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+  const { darkMode, setDarkMode } = useTheme();
   const [user, setUser] = useState(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
@@ -200,16 +193,7 @@ export default function index() {
     await base44.auth.logout('/');
   };
 
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      if (darkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      localStorage.setItem('darkMode', darkMode.toString());
-    }
-  }, [darkMode]);
+
 
   return (
     <>
