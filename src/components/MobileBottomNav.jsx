@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Map, Star, History } from "lucide-react";
 import { useTheme } from "@/lib/ThemeProvider";
 
@@ -12,10 +12,21 @@ const NAV_ITEMS = [
 export default function MobileBottomNav() {
   const { darkMode } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Only show on app sub-routes, not on landing page
   const showOnPaths = ["/App", "/Favorites", "/RouteHistory"];
   if (!showOnPaths.includes(location.pathname)) return null;
+
+  const handleNavClick = (e, path) => {
+    const isActive = location.pathname === path;
+    if (isActive) {
+      // Scroll to top and strip any search params (resets sub-view)
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      navigate(path, { replace: true });
+    }
+  };
 
   return (
     <nav
@@ -32,6 +43,7 @@ export default function MobileBottomNav() {
           <Link
             key={path}
             to={path}
+            onClick={(e) => handleNavClick(e, path)}
             className={`flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors active:scale-95 ${
               isActive
                 ? darkMode

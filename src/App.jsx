@@ -1,4 +1,5 @@
 import './App.css'
+import { AnimatePresence, motion } from "framer-motion"
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -11,6 +12,18 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { ThemeProvider } from '@/lib/ThemeProvider';
 import MobileBottomNav from '@/components/MobileBottomNav';
+
+const PageTransition = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, x: 24 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -24 }}
+    transition={{ duration: 0.22, ease: "easeInOut" }}
+    style={{ willChange: "opacity, transform" }}
+  >
+    {children}
+  </motion.div>
+);
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -45,25 +58,27 @@ const AuthenticatedApp = () => {
 
   // Render the main app
   return (
-    <Routes>
-      <Route path="/" element={
-        <LayoutWrapper currentPageName={mainPageKey}>
-          <MainPage />
-        </LayoutWrapper>
-      } />
-      {Object.entries(Pages).map(([path, Page]) => (
-        <Route
-          key={path}
-          path={`/${path}`}
-          element={
-            <LayoutWrapper currentPageName={path}>
-              <Page />
-            </LayoutWrapper>
-          }
-        />
-      ))}
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={window.location} key={window.location.pathname}>
+        <Route path="/" element={
+          <LayoutWrapper currentPageName={mainPageKey}>
+            <PageTransition><MainPage /></PageTransition>
+          </LayoutWrapper>
+        } />
+        {Object.entries(Pages).map(([path, Page]) => (
+          <Route
+            key={path}
+            path={`/${path}`}
+            element={
+              <LayoutWrapper currentPageName={path}>
+                <PageTransition><Page /></PageTransition>
+              </LayoutWrapper>
+            }
+          />
+        ))}
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </AnimatePresence>
   );
 };
 

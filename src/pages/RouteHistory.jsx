@@ -12,20 +12,8 @@ const createPageUrl = (pageName) => `/${pageName}`;
 import { format } from "date-fns";
 import MapView from "../components/MapView";
 import JourneyDetails from "../components/MeetPoint/JourneyDetails";
-
-const isDarkModeBySystem = () => {
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-};
-
-const getInitialDarkMode = () => {
-  // Try to get from localStorage first
-  const saved = localStorage.getItem('darkMode');
-  if (saved !== null) {
-    return saved === 'true';
-  }
-  // Fallback to system preference
-  return isDarkModeBySystem();
-};
+import PullToRefresh from "../components/PullToRefresh";
+import { useTheme } from "@/lib/ThemeProvider";
 
 const formatDuration = (minutes) => {
   if (minutes < 60) {
@@ -43,7 +31,7 @@ const formatDuration = (minutes) => {
 
 export default function RouteHistory() {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
-  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+  const { darkMode, setDarkMode } = useTheme();
   const [selectedHistory, setSelectedHistory] = useState(null);
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [togglingFavorite, setTogglingFavorite] = useState(null);
@@ -64,19 +52,6 @@ export default function RouteHistory() {
     };
     checkAuth();
   }, []);
-
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('dir', 'rtl');
-      if (darkMode) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      // Save to localStorage whenever darkMode changes
-      localStorage.setItem('darkMode', darkMode.toString());
-    }
-  }, [darkMode]);
 
   useEffect(() => {
     if (window.google && window.google.maps) {
@@ -434,11 +409,16 @@ export default function RouteHistory() {
             </Button>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {historyItems.map((item) => (
-              <HistoryCard key={item.id} item={item} />
-            ))}
-          </div>
+          <PullToRefresh
+            darkMode={darkMode}
+            onRefresh={() => queryClient.invalidateQueries({ queryKey: ['routeHistory'] })}
+          >
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {historyItems.map((item) => (
+                <HistoryCard key={item.id} item={item} />
+              ))}
+            </div>
+          </PullToRefresh>
         )}
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -61,7 +62,15 @@ const formatDuration = (minutes) => {
 export default function App() {
   const { darkMode, setDarkMode } = useTheme();
   const [isAuthChecking, setIsAuthChecking] = useState(true);
-  const [view, setView] = useState('search');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const view = searchParams.get('v') || 'search';
+  const setView = (v) => {
+    if (v === 'search') {
+      setSearchParams({}, { replace: false });
+    } else {
+      setSearchParams({ v }, { replace: false });
+    }
+  };
 
   // Auth Guard - Redirect to login if not authenticated
   useEffect(() => {
