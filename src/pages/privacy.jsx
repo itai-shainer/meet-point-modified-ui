@@ -161,9 +161,20 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
+            <section className={`p-6 rounded-xl border-2 ${darkMode ? 'border-blue-500/40 bg-blue-900/20' : 'border-blue-200 bg-blue-50'}`}>
+              <h2 className={`text-2xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                9. Data Retention and Account Deletion
+              </h2>
+              <p>
+                To request the deletion of your MeetPoint account, location history, and all associated data, please send an email to{' '}
+                <a href="mailto:meetpointhq@gmail.com" className="text-blue-500 hover:underline font-medium">meetpointhq@gmail.com</a>{' '}
+                from your registered email address with the subject line <strong>"Account Deletion Request"</strong>. Your data will be completely removed from our servers within 30 days.
+              </p>
+            </section>
+
             <section>
               <h2 className={`text-2xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                9. Contact Us
+                10. Contact Us
               </h2>
               <p>
                 If you have any questions about this Privacy Policy, please contact us through 
