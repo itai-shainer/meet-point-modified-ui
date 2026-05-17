@@ -64,6 +64,7 @@ export default function Settings() {
           <div className="flex items-center justify-between">
             <span className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>מצב כהה</span>
             <div
+              dir="ltr"
               onClick={() => setDarkMode(!darkMode)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${darkMode ? "bg-blue-600" : "bg-gray-300"}`}
             >
