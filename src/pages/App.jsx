@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   MapPin, Loader2, Search, ArrowRight, Car, Bus, User, Repeat,
-  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star, Home, MoreVertical, AlertTriangle, Building2, Route, HelpCircle
+  ParkingSquare, NavigationIcon, PanelTopClose, Clock, ExternalLink, Sun, Moon, Award, Gauge, History, Star, Home, MoreVertical, AlertTriangle, Building2, Route, HelpCircle, Settings
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ import MeetPointLogo from "../components/MeetPointLogo";
 import JourneyDetails from "../components/MeetPoint/JourneyDetails";
 import { Card, CardContent } from "@/components/ui/card";
 import FeedbackDialog from "../components/FeedbackDialog";
+import DeleteAccountDialog from "../components/DeleteAccountDialog";
 import { useTheme } from "@/lib/ThemeProvider";
 import {
   DropdownMenu,
@@ -123,6 +124,7 @@ export default function App() {
   const [currentRouteId, setCurrentRouteId] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [togglingFavorite, setTogglingFavorite] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [preference, setPreference] = useState("driver");
   const [alternatives, setAlternatives] = useState([]);
   const [currentPlanIndex, setCurrentPlanIndex] = useState(0);
@@ -286,15 +288,7 @@ export default function App() {
     }
   };
 
-  const handleDeleteAccount = async () => {
-    if (!window.confirm('האם אתה בטוח שברצונך למחוק את החשבון? פעולה זו אינה הפיכה.')) return;
-    try {
-      await base44.auth.deleteAccount();
-    } catch (error) {
-      console.error("Failed to delete account:", error);
-      alert('אירעה שגיאה במחיקת החשבון. אנא נסה שוב.');
-    }
-  };
+
 
   const handleSearch = async () => {
     setError("");
@@ -552,6 +546,16 @@ export default function App() {
             >
               <Link to={createPageUrl('RouteHistory')}>
                 <History className="w-5 h-5" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="icon"
+              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
+            >
+              <Link to={createPageUrl('Settings')}>
+                <Settings className="w-5 h-5" />
               </Link>
             </Button>
             <Button
@@ -931,7 +935,7 @@ export default function App() {
                       </DropdownMenuItem>
                       <DropdownMenuSeparator className={darkMode ? 'bg-gray-700' : ''} />
                       <DropdownMenuItem
-                        onClick={handleDeleteAccount}
+                        onClick={() => setShowDeleteDialog(true)}
                         className={`text-red-500 ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-red-50'}`}
                       >
                         מחק חשבון
@@ -1050,6 +1054,12 @@ export default function App() {
           </div>
         )}
       </div>
+
+      <DeleteAccountDialog
+        open={showDeleteDialog}
+        onOpenChange={setShowDeleteDialog}
+        darkMode={darkMode}
+      />
     </div>
   );
 }

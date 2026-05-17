@@ -53,6 +53,7 @@ import RouteHistory from './pages/RouteHistory';
 import index from './pages/index';
 import privacy from './pages/privacy';
 import terms from './pages/terms';
+import Settings from './pages/Settings';
 
 
 export const PAGES = {
@@ -62,6 +63,7 @@ export const PAGES = {
     "index": index,
     "privacy": privacy,
     "terms": terms,
+    "Settings": Settings,
 }
 
 export const pagesConfig = {

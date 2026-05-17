@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Map, Star, History } from "lucide-react";
+import { Map, Star, History, Settings } from "lucide-react";
 import { useTheme } from "@/lib/ThemeProvider";
 
 const NAV_ITEMS = [
   { label: "מפה", icon: Map, path: "/App" },
   { label: "מועדפים", icon: Star, path: "/Favorites" },
   { label: "היסטוריה", icon: History, path: "/RouteHistory" },
+  { label: "הגדרות", icon: Settings, path: "/Settings" },
 ];
 
 export default function MobileBottomNav() {
@@ -15,13 +16,12 @@ export default function MobileBottomNav() {
   const navigate = useNavigate();
 
   // Only show on app sub-routes, not on landing page
-  const showOnPaths = ["/App", "/Favorites", "/RouteHistory"];
+  const showOnPaths = ["/App", "/Favorites", "/RouteHistory", "/Settings"];
   if (!showOnPaths.includes(location.pathname)) return null;
 
   const handleNavClick = (e, path) => {
     const isActive = location.pathname === path;
     if (isActive) {
-      // Scroll to top and strip any search params (resets sub-view)
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
       navigate(path, { replace: true });
