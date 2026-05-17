@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Zap, Shield, Sparkles, ArrowRight, Check, Sun, Moon, User, LogOut, History as HistoryIcon, Map } from "lucide-react";
+import { MapPin, Zap, Shield, Sparkles, ArrowRight, Check, Sun, Moon, User, LogOut, History as HistoryIcon, Map, Settings } from "lucide-react";
 import MeetPointLogo from "../components/MeetPointLogo";
 import { Button } from "@/components/ui/button";
 import FeedbackDialog from "../components/FeedbackDialog";
@@ -225,7 +225,7 @@ export default function Index() {
                   variant="ghost"
                   size="icon"
                   onClick={() => setDarkMode(!darkMode)}
-                  className="rounded-full hover:scale-110 transition-transform"
+                  className={`rounded-full hover:scale-110 transition-transform ${darkMode ? 'text-white hover:bg-gray-800' : 'text-gray-900 hover:bg-gray-100'}`}
                 >
                   {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </Button>
@@ -264,6 +264,16 @@ export default function Index() {
                           <DropdownMenuLabel className={darkMode ? "text-gray-400 text-xs font-normal" : "text-gray-600 text-xs font-normal"}>
                             {user.email}
                           </DropdownMenuLabel>
+                          <DropdownMenuSeparator className={darkMode ? "bg-gray-700/50" : "bg-gray-200/50"} />
+                          <DropdownMenuItem
+                            asChild
+                            className={`cursor-pointer ${darkMode ? 'hover:bg-gray-800/80 text-white' : 'hover:bg-gray-100 text-gray-900'}`}
+                          >
+                            <Link to="/Settings">
+                              <Settings className="w-4 h-4 ml-2" />
+                              הגדרות
+                            </Link>
+                          </DropdownMenuItem>
                           <DropdownMenuSeparator className={darkMode ? "bg-gray-700/50" : "bg-gray-200/50"} />
                           <DropdownMenuItem 
                             onClick={handleLogout}
