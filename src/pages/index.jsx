@@ -175,6 +175,13 @@ export default function Index() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        // If user explicitly clicked the home button, show landing page
+        const viewLanding = sessionStorage.getItem('viewLanding');
+        if (viewLanding) {
+          sessionStorage.removeItem('viewLanding');
+          setIsCheckingAuth(false);
+          return;
+        }
         const isAuth = await base44.auth.isAuthenticated();
         if (isAuth) {
           // Authenticated users go straight to the app

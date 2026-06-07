@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useTheme } from "@/lib/ThemeProvider";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sun, Moon, Trash2, User, Home } from "lucide-react";
+import { Home, Sun, Moon, Trash2, User } from "lucide-react";
 import MeetPointLogo from "../components/MeetPointLogo";
 import DeleteAccountDialog from "../components/DeleteAccountDialog";
 
@@ -35,7 +35,7 @@ export default function Settings() {
           </div>
           <div className="flex gap-2">
             <Button asChild variant="outline" size="icon" className={darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}>
-              <Link to="/App"><ArrowRight className="w-5 h-5" /></Link>
+              <Link to="/" onClick={() => sessionStorage.setItem('viewLanding', '1')}><Home className="w-5 h-5" /></Link>
             </Button>
             <Button variant="outline" size="icon" onClick={() => setDarkMode(!darkMode)} className={darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}>
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}

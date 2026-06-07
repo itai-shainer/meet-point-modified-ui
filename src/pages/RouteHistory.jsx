@@ -348,7 +348,7 @@ export default function RouteHistory() {
               size="icon"
               className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
-              <Link to="/">
+              <Link to="/" onClick={() => sessionStorage.setItem('viewLanding', '1')}>
                 <Home className="w-5 h-5" />
               </Link>
             </Button>
