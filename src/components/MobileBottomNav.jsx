@@ -44,7 +44,7 @@ export default function MobileBottomNav() {
             key={path}
             to={path}
             onClick={(e) => handleNavClick(e, path)}
-            className={`flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors active:scale-95 ${
+            className={`flex-1 flex flex-col items-center justify-center py-3 gap-1 transition-colors active:scale-95 min-h-[56px] ${
               isActive
                 ? darkMode
                   ? "text-blue-400"

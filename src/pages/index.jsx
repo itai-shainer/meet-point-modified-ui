@@ -177,11 +177,12 @@ export default function Index() {
       try {
         const isAuth = await base44.auth.isAuthenticated();
         if (isAuth) {
-          const currentUser = await base44.auth.me();
-          setUser(currentUser);
+          // Authenticated users go straight to the app
+          window.location.replace('/App');
+          return;
         }
       } catch (error) {
-        console.log("User not authenticated");
+        // not authenticated, show landing
       } finally {
         setIsCheckingAuth(false);
       }
@@ -194,6 +195,15 @@ export default function Index() {
   };
 
 
+
+  // Show nothing while checking auth to avoid flash of landing page
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950">
+        <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <>

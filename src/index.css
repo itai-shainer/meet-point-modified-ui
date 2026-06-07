@@ -170,3 +170,25 @@ button:focus-visible {
   --safe-area-left: env(safe-area-inset-left);
   --safe-area-right: env(safe-area-inset-right);
 }
+
+/* Prevent iOS auto-zoom on input focus (requires font-size >= 16px) */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* Extend background into iOS safe areas */
+html {
+  background-color: hsl(var(--background));
+}
+
+/* Safe area padding for fixed bottom nav */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Ensure content doesn't hide behind bottom nav on mobile */
+@media (max-width: 768px) {
+  .main-content-area {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
