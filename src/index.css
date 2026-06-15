@@ -156,6 +156,7 @@ button:focus-visible {
     @apply bg-background text-foreground;
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
+    padding-top: env(safe-area-inset-top);
   }
   button, a, [role="button"] {
     @apply select-none;
