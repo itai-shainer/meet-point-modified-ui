@@ -346,7 +346,7 @@ export default function RouteHistory() {
               asChild
               variant="outline"
               size="icon"
-              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
+              className={`hidden md:inline-flex backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               <Link to="/" onClick={() => sessionStorage.setItem('viewLanding', '1')}>
                 <Home className="w-5 h-5" />
@@ -356,7 +356,7 @@ export default function RouteHistory() {
               asChild
               variant="outline"
               size="icon"
-              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
+              className={`hidden md:inline-flex backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
             >
               <Link to={createPageUrl('Favorites')}>
                 <Star className="w-5 h-5" />
@@ -365,7 +365,7 @@ export default function RouteHistory() {
             <Button
               asChild
               variant="outline"
-              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50 text-white' : 'bg-white/50 border-gray-200/50 hover:bg-white/70 text-gray-900'}`}
+              className={`hidden md:inline-flex backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50 text-white' : 'bg-white/50 border-gray-200/50 hover:bg-white/70 text-gray-900'}`}
             >
               <Link to={createPageUrl('App')}>
                 <ArrowRight className="w-4 h-4 ml-2" />

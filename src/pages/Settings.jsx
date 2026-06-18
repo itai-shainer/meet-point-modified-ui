@@ -34,7 +34,7 @@ export default function Settings() {
             <h1 className={`text-xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}>הגדרות</h1>
           </div>
           <div className="flex gap-2">
-            <Button asChild variant="outline" size="icon" className={darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}>
+            <Button asChild variant="outline" size="icon" className={`hidden md:inline-flex ${darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}`}>
               <Link to="/" onClick={() => sessionStorage.setItem('viewLanding', '1')}><Home className="w-5 h-5" /></Link>
             </Button>
             <Button variant="outline" size="icon" onClick={() => setDarkMode(!darkMode)} className={darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}>
