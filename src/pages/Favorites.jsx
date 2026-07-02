@@ -332,12 +332,12 @@ export default function Favorites() {
       />
       <div className="max-w-7xl mx-auto p-4 md:p-8 relative z-10">
         {/* Glass navbar */}
-        <div className={`flex flex-row justify-between items-center gap-4 mb-8 p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
-          <div className="flex items-center gap-3 w-full md:w-auto justify-center md:justify-start">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-600 shadow-lg">
+        <div className={`flex flex-wrap justify-between items-center gap-4 mb-8 p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-600 shadow-lg flex-shrink-0">
               <Star className="w-8 h-8 text-white fill-white" />
             </div>
-            <div className="text-center md:text-right">
+            <div className="text-right min-w-0">
               <h1 className={`text-2xl md:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 המסלולים המועדפים שלי
               </h1>
@@ -347,7 +347,7 @@ export default function Favorites() {
             </div>
           </div>
 
-          <div className="flex gap-2 w-full md:w-auto justify-end">
+          <div className="flex gap-2 justify-end flex-shrink-0">
             <Button
               asChild
               variant="outline"
