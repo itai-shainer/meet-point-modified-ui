@@ -31,7 +31,7 @@ const formatDuration = (minutes) => {
 
 export default function Favorites() {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
-  const { darkMode, setDarkMode } = useTheme();
+  const { darkMode, setDarkMode, autoMode } = useTheme();
   const [selectedFavorite, setSelectedFavorite] = useState(null);
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [togglingFavorite, setTogglingFavorite] = useState(null);
@@ -271,14 +271,16 @@ export default function Favorites() {
                 חזרה למועדפים
               </Button>
             </div>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setDarkMode(!darkMode)}
-              className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'}
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
+            {!autoMode && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setDarkMode(!darkMode)}
+                className={darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'}
+              >
+                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+            )}
           </div>
 
           <div className={`mb-4 p-3 rounded-lg ${darkMode ? 'bg-gray-800/30' : 'bg-white/60'}`}>
@@ -376,14 +378,16 @@ export default function Favorites() {
                 חיפוש חדש
               </Link>
             </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setDarkMode(!darkMode)}
-              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
+            {!autoMode && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setDarkMode(!darkMode)}
+                className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
+              >
+                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+            )}
           </div>
         </div>
 

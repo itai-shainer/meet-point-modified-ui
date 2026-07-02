@@ -61,7 +61,7 @@ const formatDuration = (minutes) => {
 };
 
 export default function App() {
-  const { darkMode, setDarkMode } = useTheme();
+  const { darkMode, setDarkMode, autoMode } = useTheme();
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const view = searchParams.get('v') || 'search';
@@ -558,14 +558,16 @@ export default function App() {
                 <Settings className="w-5 h-5" />
               </Link>
             </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setDarkMode(!darkMode)}
-              className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
+            {!autoMode && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setDarkMode(!darkMode)}
+                className={`backdrop-blur-sm transition-all ${darkMode ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' : 'bg-white/50 border-gray-200/50 hover:bg-white/70'}`}
+              >
+                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+            )}
           </div>
         </div>
 

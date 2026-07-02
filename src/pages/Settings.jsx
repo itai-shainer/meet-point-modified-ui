@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useTheme } from "@/lib/ThemeProvider";
 import { Button } from "@/components/ui/button";
-import { Home, Sun, Moon, Trash2, User } from "lucide-react";
+import { Home, Sun, Moon, Trash2, User, Sparkles } from "lucide-react";
 import MeetPointLogo from "../components/MeetPointLogo";
 import DeleteAccountDialog from "../components/DeleteAccountDialog";
 
 export default function Settings() {
-  const { darkMode, setDarkMode } = useTheme();
+  const { darkMode, setDarkMode, autoMode, setAutoMode } = useTheme();
   const [user, setUser] = useState(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
@@ -37,9 +37,11 @@ export default function Settings() {
             <Button asChild variant="outline" size="icon" className={`hidden md:inline-flex ${darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}`}>
               <Link to="/" onClick={() => sessionStorage.setItem('viewLanding', '1')}><Home className="w-5 h-5" /></Link>
             </Button>
-            <Button variant="outline" size="icon" onClick={() => setDarkMode(!darkMode)} className={darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}>
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
+            {!autoMode && (
+              <Button variant="outline" size="icon" onClick={() => setDarkMode(!darkMode)} className={darkMode ? "bg-gray-800/50 border-gray-700/50 text-white" : ""}>
+                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </Button>
+            )}
           </div>
         </div>
 
@@ -61,16 +63,39 @@ export default function Settings() {
         {/* Appearance */}
         <div className={`rounded-2xl p-5 mb-4 border ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>
           <h2 className={`text-sm font-semibold mb-3 uppercase tracking-wide ${darkMode ? "text-gray-400" : "text-gray-500"}`}>מראה</h2>
-          <div className="flex items-center justify-between">
-            <span className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>מצב כהה</span>
+          {/* Auto theme toggle */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Sparkles className={`w-4 h-4 ${autoMode ? (darkMode ? "text-blue-400" : "text-blue-600") : "text-gray-400"}`} />
+              <span className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>התאמה אוטומטית למערכת</span>
+            </div>
             <div
               dir="ltr"
-              onClick={() => setDarkMode(!darkMode)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${darkMode ? "bg-blue-600" : "bg-gray-300"}`}
+              onClick={() => setAutoMode(!autoMode)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${autoMode ? "bg-blue-600" : "bg-gray-300"}`}
             >
-              <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${darkMode ? "translate-x-6" : "translate-x-1"}`} />
+              <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${autoMode ? "translate-x-6" : "translate-x-1"}`} />
             </div>
           </div>
+
+          {/* Manual dark mode toggle — only visible when not auto */}
+          {!autoMode && (
+            <div className={`flex items-center justify-between pt-4 border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+              <span className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>מצב כהה</span>
+              <div
+                dir="ltr"
+                onClick={() => setDarkMode(!darkMode)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors cursor-pointer ${darkMode ? "bg-blue-600" : "bg-gray-300"}`}
+              >
+                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${darkMode ? "translate-x-6" : "translate-x-1"}`} />
+              </div>
+            </div>
+          )}
+          {autoMode && (
+            <p className={`text-xs mt-2 ${darkMode ? "text-gray-500" : "text-gray-400"}`}>
+              האפליקציה תותאם אוטומטית למצב הבהיר/כהה של המכשיר שלך.
+            </p>
+          )}
         </div>
 
         {/* Account Actions */}
