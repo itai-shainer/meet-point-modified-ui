@@ -509,10 +509,10 @@ export default function App() {
       />
       <div className="max-w-7xl mx-auto p-3 md:p-8 pb-24 md:pb-8 relative z-10 overflow-x-hidden" style={{ paddingBottom: 'calc(80px + env(safe-area-inset-bottom))' }}>
         {/* Glass navbar */}
-        <div className={`relative flex flex-row justify-start items-center gap-2 mb-6 p-3 md:p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
-          <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5 sm:flex-row sm:items-center sm:gap-2">
+        <div className={`relative flex flex-row justify-start items-center gap-2 mb-6 p-5 md:p-6 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
+          <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:flex-row sm:items-center sm:gap-3">
             <MeetPointLogo size="sm" darkMode={darkMode} customDarkSrc="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/78d40b603_AdobeExpress-file.png" />
-            <h1 className={`text-xs sm:text-2xl md:text-3xl font-bold text-center ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h1 className={`text-sm sm:text-2xl md:text-3xl font-bold text-center ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               Meet Point
             </h1>
           </div>
