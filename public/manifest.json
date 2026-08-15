@@ -1,0 +1,19 @@
+{
+  "name": "Meet Point",
+  "short_name": "MeetPoint",
+  "description": "מחשבון נקודת המפגש החכם — חוסך זמן ונסיעה לנהג ולנוסע.",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

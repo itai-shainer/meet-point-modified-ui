@@ -97,7 +97,7 @@ export default function PrivacyPolicy() {
                 3. Data Storage and Security
               </h2>
               <p>
-                Your data is securely stored using industry-standard encryption. We use Base44 platform 
+                Your data is securely stored using industry-standard encryption. We use our own infrastructure
                 for data management, which employs advanced security measures to protect your information. 
                 Route calculations are performed using Google Maps API and our proprietary optimization algorithm.
               </p>

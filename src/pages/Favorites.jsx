@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { base44 } from "@/api/base44Client";
+import { RouteHistory } from "@/api/entities";
+import { initGoogleMaps } from "@/lib/googleMaps";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,58 +31,34 @@ const formatDuration = (minutes) => {
 };
 
 export default function Favorites() {
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const { darkMode, setDarkMode, autoMode } = useTheme();
   const [selectedFavorite, setSelectedFavorite] = useState(null);
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [togglingFavorite, setTogglingFavorite] = useState(null);
   const queryClient = useQueryClient();
 
-  // Auth Guard
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const isAuthenticated = await base44.auth.isAuthenticated();
-        if (!isAuthenticated) {
-          base44.auth.redirectToLogin(window.location.pathname);
-          return;
-        }
-        setIsAuthChecking(false);
-      } catch (error) {
-        base44.auth.redirectToLogin(window.location.pathname);
-      }
-    };
-    checkAuth();
-  }, []);
+  // Authentication is enforced by RequireAuth in src/App.jsx.
 
-  useEffect(() => {
-    if (window.google && window.google.maps) {
-      setMapApiLoaded(true);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCrZ3JRWhLuwsP1sWCL3R48oXFMqKuatAw&libraries=places,geometry`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => setMapApiLoaded(true);
-    script.onerror = () => console.error("Failed to load Google Maps API");
-    document.head.appendChild(script);
-  }, []);
+  useEffect(
+    () =>
+      initGoogleMaps((ready, error) => {
+        if (ready) setMapApiLoaded(true);
+        else console.error("Failed to load Google Maps API", error);
+      }),
+    []
+  );
 
   const { data: allFavorites = [], isLoading } = useQuery({
     queryKey: ['favorites'],
-    queryFn: async () => {
-      const allRoutes = await base44.entities.RouteHistory.list('-created_date');
-      return allRoutes.filter(route => route.is_favorite === true);
-    },
+    // Filtering happens server-side now, so we no longer download every route.
+    queryFn: () => RouteHistory.listFavorites(),
   });
 
   const toggleFavorite = async (e, item) => {
     e.stopPropagation();
     setTogglingFavorite(item.id);
     try {
-      await base44.entities.RouteHistory.update(item.id, {
+      await RouteHistory.update(item.id, {
         is_favorite: false
       });
       await queryClient.invalidateQueries({ queryKey: ['favorites'] });
@@ -242,17 +219,6 @@ export default function Favorites() {
         </CardContent>
     </Card>
   );
-
-  if (isAuthChecking) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-          <p className="text-gray-600">בודק הרשאות...</p>
-        </div>
-      </div>
-    );
-  }
 
   if (selectedFavorite) {
     const plan = selectedFavorite.api_response?.best_plan;

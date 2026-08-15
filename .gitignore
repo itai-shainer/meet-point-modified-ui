@@ -28,3 +28,12 @@ dist-ssr
 *.sw?
 
 .env
+# keep the template, ignore real env files
+!.env.example
+
+# python backend
+server/.venv/
+server/*.db
+__pycache__/
+*.py[cod]
+.pytest_cache/

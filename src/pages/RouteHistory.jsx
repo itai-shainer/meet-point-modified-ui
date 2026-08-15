@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { base44 } from "@/api/base44Client";
+import { RouteHistory as RouteHistoryApi } from "@/api/entities";
+import { initGoogleMaps } from "@/lib/googleMaps";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,47 +31,25 @@ const formatDuration = (minutes) => {
 };
 
 export default function RouteHistory() {
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const { darkMode, setDarkMode, autoMode } = useTheme();
   const [selectedHistory, setSelectedHistory] = useState(null);
   const [mapApiLoaded, setMapApiLoaded] = useState(false);
   const [togglingFavorite, setTogglingFavorite] = useState(null);
 
-  // Auth Guard
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const isAuthenticated = await base44.auth.isAuthenticated();
-        if (!isAuthenticated) {
-          base44.auth.redirectToLogin(window.location.pathname);
-          return;
-        }
-        setIsAuthChecking(false);
-      } catch (error) {
-        base44.auth.redirectToLogin(window.location.pathname);
-      }
-    };
-    checkAuth();
-  }, []);
+  // Authentication is enforced by RequireAuth in src/App.jsx.
 
-  useEffect(() => {
-    if (window.google && window.google.maps) {
-      setMapApiLoaded(true);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCrZ3JRWhLuwsP1sWCL3R48oXFMqKuatAw&libraries=places,geometry`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => setMapApiLoaded(true);
-    script.onerror = () => console.error("Failed to load Google Maps API");
-    document.head.appendChild(script);
-  }, []);
+  useEffect(
+    () =>
+      initGoogleMaps((ready, error) => {
+        if (ready) setMapApiLoaded(true);
+        else console.error("Failed to load Google Maps API", error);
+      }),
+    []
+  );
 
   const { data: historyItems = [], isLoading } = useQuery({
     queryKey: ['routeHistory'],
-    queryFn: () => base44.entities.RouteHistory.list('-created_date'),
+    queryFn: () => RouteHistoryApi.list({ order: '-created_date' }),
   });
 
   const queryClient = useQueryClient();
@@ -79,7 +58,7 @@ export default function RouteHistory() {
     e.stopPropagation();
     setTogglingFavorite(item.id);
     try {
-      await base44.entities.RouteHistory.update(item.id, {
+      await RouteHistoryApi.update(item.id, {
         is_favorite: !item.is_favorite
       });
       // Refetch to update the UI
@@ -237,17 +216,6 @@ export default function RouteHistory() {
         </CardContent>
     </Card>
   );
-
-  if (isAuthChecking) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-          <p className="text-gray-600">בודק הרשאות...</p>
-        </div>
-      </div>
-    );
-  }
 
   if (selectedHistory) {
     const plan = selectedHistory.api_response?.best_plan;

@@ -9,7 +9,9 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { debounce } from "lodash";
-import { base44 } from "@/api/base44Client";
+import { RouteHistory } from "@/api/entities";
+import { optimizeRoute } from "@/api/optimize";
+import { fetchPlacePredictions, geocodeAddress, initGoogleMaps } from "@/lib/googleMaps";
 import { Link } from "react-router-dom";
 const createPageUrl = (pageName) => `/${pageName}`;
 
@@ -62,7 +64,6 @@ const formatDuration = (minutes) => {
 
 export default function App() {
   const { darkMode, setDarkMode, autoMode } = useTheme();
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const view = searchParams.get('v') || 'search';
   const setView = (v) => {
@@ -73,22 +74,7 @@ export default function App() {
     }
   };
 
-  // Auth Guard - Redirect to login if not authenticated
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const isAuthenticated = await base44.auth.isAuthenticated();
-        if (!isAuthenticated) {
-          base44.auth.redirectToLogin(window.location.pathname);
-          return;
-        }
-        setIsAuthChecking(false);
-      } catch (error) {
-        base44.auth.redirectToLogin(window.location.pathname);
-      }
-    };
-    checkAuth();
-  }, []);
+  // Authentication is enforced by RequireAuth in src/App.jsx.
 
   const [origin1, setOrigin1] = useState("");
   const [origin2, setOrigin2] = useState("");
@@ -138,61 +124,32 @@ export default function App() {
 
 
   useEffect(() => {
-    if (mapApiLoadedRef.current) return;
+    if (mapApiLoadedRef.current) return undefined;
 
-    const loadGoogleMapsAPI = () => {
-      if (window.google && window.google.maps) {
+    return initGoogleMaps((ready, loadError) => {
+      if (ready) {
         setMapApiLoaded(true);
         mapApiLoadedRef.current = true;
-        return;
-      }
-
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCrZ3JRWhLuwsP1sWCL3R48oXFMqKuatAw&libraries=places,geometry`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => {
-        setMapApiLoaded(true);
-        mapApiLoadedRef.current = true;
-      };
-      script.onerror = () => {
-        console.error("Failed to load Google Maps API");
+      } else {
+        console.error("Failed to load Google Maps API", loadError);
         setError("שגיאה בטעינת Google Maps API. אנא רענן את העמוד.");
-      };
-      document.head.appendChild(script);
-    };
-
-    loadGoogleMapsAPI();
+      }
+    });
   }, []);
 
-  const fetchAddressSuggestions = useCallback((input, setterFunction, setLoadingFunction) => {
+  const fetchAddressSuggestions = useCallback(async (input, setterFunction, setLoadingFunction) => {
     if (!input || input.length < 2) {
       setterFunction([]);
       setLoadingFunction(false);
       return;
     }
 
-    if (!window.google || !window.google.maps || !window.google.maps.places) {
-      console.warn("Google Maps API not loaded yet");
-      return;
-    }
-
     setLoadingFunction(true);
-    
-    const service = new window.google.maps.places.AutocompleteService();
-    service.getPlacePredictions({
-      input: input
-    }, (predictions, status) => {
+    try {
+      setterFunction(await fetchPlacePredictions(input));
+    } finally {
       setLoadingFunction(false);
-      if (status === window.google.maps.places.PlacesServiceStatus.OK && predictions) {
-        setterFunction(predictions.map(p => ({
-          description: p.description,
-          place_id: p.place_id
-        })));
-      } else {
-        setterFunction([]);
-      }
-    });
+    }
   }, []);
 
   const debouncedFetchAddresses1 = useMemo(
@@ -210,22 +167,6 @@ export default function App() {
     [fetchAddressSuggestions]
   );
   
-  const geocodeAddress = useCallback((address) => {
-    return new Promise((resolve, reject) => {
-        if (!address || address.trim() === "") {
-            return reject("כתובת ריקה הוזנה");
-        }
-        const geocoder = new window.google.maps.Geocoder();
-        geocoder.geocode({ address: address }, (results, status) => {
-            if (status === 'OK' && results[0]) {
-                resolve(results[0].geometry.location);
-            } else {
-                reject(`לא ניתן היה למצוא את הכתובת: "${address}".`);
-            }
-        });
-    });
-  }, []);
-
   useEffect(() => {
     if (!mapApiLoaded) return;
     debouncedFetchAddresses1(searchTerm1);
@@ -243,7 +184,7 @@ export default function App() {
 
   const saveToHistory = async (origin1LatLng, origin2LatLng, destLatLng, result) => {
     try {
-      const savedRoute = await base44.entities.RouteHistory.create({
+      const savedRoute = await RouteHistory.create({
         driver_origin_address: origin1,
         driver_origin_lat: origin1LatLng.lat(),
         driver_origin_lng: origin1LatLng.lng(),
@@ -276,7 +217,7 @@ export default function App() {
     setIsFavorite(newFavoriteStatus);
     setTogglingFavorite(true);
     try {
-      await base44.entities.RouteHistory.update(currentRouteId, {
+      await RouteHistory.update(currentRouteId, {
         is_favorite: newFavoriteStatus
       });
     } catch (error) {
@@ -326,48 +267,15 @@ export default function App() {
         return;
     }
 
-    const requestBody = {
-      origin: origin1,
-      destination: destination,
-      passengers: [
-        {
-          label: "passenger_1",
-          address: origin2,
-          transit_mode: useTransit
-        }
-      ],
-      preference: preference
-    };
-
-    console.log('Sending API request to: https://meet-point-api-production.up.railway.app/api/v1/optimize');
-    console.log('Request Body:', JSON.stringify(requestBody, null, 2));
-
     try {
-      const response = await fetch('https://meet-point-api-production.up.railway.app/api/v1/optimize', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
+      const result = await optimizeRoute({
+        origin: origin1,
+        destination: destination,
+        passengerAddress: origin2,
+        passengerUsesTransit: useTransit,
+        preference: preference,
       });
 
-      console.log('API Response Status:', response.status);
-
-      if (!response.ok) {
-        let errorMsg = `שגיאת שרת: ${response.status}`;
-        try {
-            const errorData = await response.json();
-            console.error('API Error Response Body:', errorData);
-            errorMsg = errorData.detail || errorMsg;
-        } catch (e) {
-            console.error("Could not parse error response as JSON.");
-        }
-        throw new Error(errorMsg);
-      }
-
-      const result = await response.json();
-      console.log('Received API Result:', JSON.stringify(result, null, 2));
-      
       if (result.alternatives && Array.isArray(result.alternatives)) {
         console.log(`Found ${result.alternatives.length} alternative plan(s)`);
         setAlternatives(result.alternatives);
@@ -486,17 +394,6 @@ export default function App() {
     </Card>
   );
 
-  if (isAuthChecking) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-          <p className="text-gray-600">בודק הרשאות...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={`min-h-screen transition-colors duration-300 relative ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Subtle mesh gradient background */}
@@ -511,7 +408,7 @@ export default function App() {
         {/* Glass navbar */}
         <div className={`flex flex-row justify-between items-center gap-2 mb-6 p-3 md:p-4 rounded-2xl backdrop-blur-md border shadow-xl ${darkMode ? 'bg-gray-900/90 border-white/10' : 'bg-white/90 border-white/20'}`}>
           <div className="flex flex-col items-center gap-0.5 sm:flex-row sm:items-center sm:gap-2">
-            <MeetPointLogo size="sm" darkMode={darkMode} customDarkSrc="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/78d40b603_AdobeExpress-file.png" />
+            <MeetPointLogo size="sm" darkMode={darkMode} />
             <h1 className={`text-xs sm:text-2xl md:text-3xl font-bold text-center sm:text-right ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               Meet Point
             </h1>

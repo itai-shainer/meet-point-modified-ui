@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import FeedbackDialog from "../components/FeedbackDialog";
 import { createPageUrl } from "@/utils";
 import { motion } from "framer-motion";
-import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { useTheme } from "@/lib/ThemeProvider";
+import faviconUrl from "@/assets/brand/favicon.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,11 +26,11 @@ const SEOHead = () => {
     // Set favicon
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
-      favicon.setAttribute('href', 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68de300ce9a2edafebb3ebe5/80adfd113_meetpointlogo.png');
+      favicon.setAttribute('href', faviconUrl);
     } else {
       const link = document.createElement('link');
       link.rel = 'icon';
-      link.href = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68de300ce9a2edafebb3ebe5/80adfd113_meetpointlogo.png';
+      link.href = faviconUrl;
       document.head.appendChild(link);
     }
     
@@ -161,8 +162,8 @@ const MeetingAnimation = () => {
 export default function Index() {
   const [scrolled, setScrolled] = useState(false);
   const { darkMode, setDarkMode } = useTheme();
-  const [user, setUser] = useState(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const { user, isAuthenticated, isLoadingAuth, logout } = useAuth();
+  const [showLanding, setShowLanding] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -173,38 +174,29 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // If user explicitly clicked the home button, show landing page
-        const viewLanding = sessionStorage.getItem('viewLanding');
-        if (viewLanding) {
-          sessionStorage.removeItem('viewLanding');
-          setIsCheckingAuth(false);
-          return;
-        }
-        const isAuth = await base44.auth.isAuthenticated();
-        if (isAuth) {
-          // Authenticated users go straight to the app
-          window.location.replace('/App');
-          return;
-        }
-      } catch (error) {
-        // not authenticated, show landing
-      } finally {
-        setIsCheckingAuth(false);
-      }
-    };
-    checkAuth();
-  }, []);
+    if (isLoadingAuth) return;
+
+    // Clicking the home button means "show me the landing page anyway".
+    if (sessionStorage.getItem('viewLanding')) {
+      sessionStorage.removeItem('viewLanding');
+      setShowLanding(true);
+      return;
+    }
+
+    if (isAuthenticated) {
+      window.location.replace('/App');
+      return;
+    }
+
+    setShowLanding(true);
+  }, [isLoadingAuth, isAuthenticated]);
 
   const handleLogout = async () => {
-    await base44.auth.logout('/');
+    await logout('/');
   };
 
-
-
   // Show nothing while checking auth to avoid flash of landing page
-  if (isCheckingAuth) {
+  if (!showLanding) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950">
         <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
@@ -232,7 +224,7 @@ export default function Index() {
           <div className="max-w-7xl mx-auto px-4 md:px-12 py-3 md:py-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <MeetPointLogo size="sm" darkMode={darkMode} customDarkSrc="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/78d40b603_AdobeExpress-file.png" />
+                <MeetPointLogo size="sm" darkMode={darkMode} />
                 <span className="text-xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Meet Point
                 </span>
@@ -247,14 +239,14 @@ export default function Index() {
                   {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </Button>
                 
-                {!isCheckingAuth && (
+                {!isLoadingAuth && (
                   <>
                     {!user ? (
-                      <Button 
-                        asChild 
+                      <Button
+                        asChild
                         className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg rounded-full px-6 hover:scale-105 transition-all"
                       >
-                        <Link to={createPageUrl('App')}>
+                        <Link to="/Login">
                           התחבר
                           <ArrowRight className="w-4 h-4 mr-2" />
                         </Link>
@@ -512,7 +504,7 @@ export default function Index() {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-6">
               <div className="flex items-center gap-2">
-                <MeetPointLogo size="sm" darkMode={darkMode} customDarkSrc="https://media.base44.com/images/public/68de300ce9a2edafebb3ebe5/78d40b603_AdobeExpress-file.png" />
+                <MeetPointLogo size="sm" darkMode={darkMode} />
                 <span className="text-xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Meet Point
                 </span>

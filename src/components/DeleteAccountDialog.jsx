@@ -10,9 +10,10 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Loader2 } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 
 export default function DeleteAccountDialog({ open, onOpenChange, darkMode }) {
+  const { deleteAccount } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -20,7 +21,7 @@ export default function DeleteAccountDialog({ open, onOpenChange, darkMode }) {
     setLoading(true);
     setError("");
     try {
-      await base44.auth.deleteAccount();
+      await deleteAccount();
     } catch (err) {
       setError("אירעה שגיאה במחיקת החשבון. אנא נסה שוב.");
       setLoading(false);

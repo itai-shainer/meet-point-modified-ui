@@ -11,10 +11,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { MessageSquare, Loader2, CheckCircle2 } from "lucide-react";
-import { base44 } from "@/api/base44Client";
+import { Feedback } from "@/api/entities";
+import { useAuth } from "@/lib/AuthContext";
 
-export default function FeedbackDialog({ 
-  triggerText = "שלח לנו משוב", 
+export default function FeedbackDialog({
+  triggerText = "שלח לנו משוב",
   title = "נשמח לשמוע ממך",
   description = "ספר לנו מה אפשר לשפר או אם נתקלת בבעיה",
   darkMode = false,
@@ -22,6 +23,7 @@ export default function FeedbackDialog({
   variant = "outline",
   hideIcon = false
 }) {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -29,29 +31,20 @@ export default function FeedbackDialog({
   const [sent, setSent] = useState(false);
   const [error, setError] = useState(false);
 
+  // Pre-fill from the signed-in user, but let them override it.
   useEffect(() => {
-    const fetchUserEmail = async () => {
-      try {
-        const user = await base44.auth.me();
-        if (user?.email) {
-          setEmail(user.email);
-        }
-      } catch (error) {
-        console.log("User not authenticated");
-      }
-    };
-    fetchUserEmail();
-  }, []);
+    if (user?.email) setEmail(user.email);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!message.trim()) return;
 
     setSending(true);
     setError(false);
     try {
-      await base44.entities.Feedback.create({
+      await Feedback.create({
         message: message,
         contact_email: email || null,
         driver_origin: routeInfo?.driverOrigin || null,
@@ -66,8 +59,8 @@ export default function FeedbackDialog({
         setMessage("");
         setError(false);
       }, 2000);
-    } catch (error) {
-      console.error("Failed to send feedback:", error);
+    } catch (err) {
+      console.error("Failed to send feedback:", err);
       setError(true);
     } finally {
       setSending(false);
