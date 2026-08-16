@@ -23,6 +23,7 @@ export default defineConfig({
   },
   preview: {
     port: 4173,
+    allowedHosts: ['meet-point-modified-ui-production.up.railway.app'],
   },
   build: {
     outDir: 'dist',
