@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+import json
 import secrets
 from functools import lru_cache
-from typing import List, Optional
+from typing import Annotated, List, Optional
 
 from pydantic import field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -39,10 +40,16 @@ class Settings(BaseSettings):
     COOKIE_SECURE: bool = False
     COOKIE_SAMESITE: str = "lax"
     COOKIE_DOMAIN: Optional[str] = None
-    ADMIN_EMAILS: List[str] = []
+    # NoDecode: let _split_csv below handle the raw env string. Without it,
+    # pydantic-settings json.loads() complex fields before validators run,
+    # so a plain comma-separated value raises a JSONDecodeError at import.
+    ADMIN_EMAILS: Annotated[List[str], NoDecode] = []
 
     # --- CORS --------------------------------------------------------------
-    CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    CORS_ORIGINS: Annotated[List[str], NoDecode] = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ]
 
     # --- Route optimizer ---------------------------------------------------
     # The pickup-optimizer service. Kept as a separate deployable; this API
@@ -64,7 +71,11 @@ class Settings(BaseSettings):
             if not stripped:
                 return []
             if stripped.startswith("["):
-                return value
+                # These fields are NoDecode, so parse the JSON form ourselves.
+                try:
+                    return json.loads(stripped)
+                except json.JSONDecodeError as exc:
+                    raise ValueError(f"expected a JSON array or comma-separated list: {exc}") from exc
             return [item.strip() for item in stripped.split(",") if item.strip()]
         return value
 
